@@ -25,6 +25,30 @@ services:
     volumes:
       - crops-db-data:/var/lib/postgresql/data
 
+  dashboards-db:
+    image: postgres:15
+    container_name: dashboards-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dashboards
+    ports:
+      - '5003:5432'
+    volumes:
+      - dashboards-db-data:/var/lib/postgresql/data
+
+  locations-db:
+    image: postgres:15
+    container_name: locations-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: locations
+    ports:
+      - '5004:5432'
+    volumes:
+      - locations-db-data:/var/lib/postgresql/data
+
   producers-db:
     image: postgres:15
     container_name: producers-db
@@ -33,11 +57,26 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: producers
     ports:
-      - '5003:5432'
+      - '5005:5432'
     volumes:
       - producers-db-data:/var/lib/postgresql/data
+
+  properties-db:
+    image: postgres:15
+    container_name: properties-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: properties
+    ports:
+      - '5006:5432'
+    volumes:
+      - properties-db-data:/var/lib/postgresql/data
 
 volumes:
   commodities-db-data:
   crops-db-data:
+  dashboards-db-data:
+  locations-db-data:
   producers-db-data:
+  properties-db-data:

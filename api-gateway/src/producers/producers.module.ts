@@ -10,7 +10,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.TCP, // TCP communication
         options: {
           host: process.env.PRODUCER_HOST ?? 'localhost',
-          port: Number(process.env.PRODUCER_PORT || 3003),
+          port: Number(process.env.PRODUCER_PORT || 3005),
         }, // Microservice address
       },
     ]),

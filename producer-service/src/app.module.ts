@@ -19,7 +19,7 @@ import { ProducersModule } from './producers/producers.module';
         transport: Transport.TCP, // TCP communication
         options: {
           host: process.env.PRODUCER_HOST ?? 'localhost',
-          port: Number(process.env.PORT || 3003),
+          port: Number(process.env.PORT || 3005),
         }, // Microservice address
       },
     ]),
