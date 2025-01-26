@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - '3000:3000'
+    environment:
+      - PRODUCER_HOST=producer-service
+    # networks:
+    #   - app-network
+    depends_on:
+      - producer-service
+
+  producer-service:
+    build:
+      context: ./producer-service
+    ports:
+      - '3003:3003'
+    # networks:
+    #   - app-network
+
+# networks:
+#   app-network:
+#     driver: bridge
