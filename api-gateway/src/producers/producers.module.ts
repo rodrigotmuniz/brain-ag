@@ -19,6 +19,13 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 })
 export class ProducersModule {
   constructor() {
-    console.log('PRODUCER_SERVICE_CLIENT', process.env.PRODUCER_SERVICE_CLIENT);
+    console.log('ProducersModule', {
+      name: process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT',
+      transport: Transport.TCP, // TCP communication
+      options: {
+        host: process.env.PRODUCER_HOST ?? 'localhost',
+        port: Number(process.env.PRODUCER_PORT || 3005),
+      }, // Microservice address
+    });
   }
 }

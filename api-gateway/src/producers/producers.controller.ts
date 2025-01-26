@@ -19,7 +19,10 @@ export class ProducersController {
   constructor(
     @Inject(process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT')
     private readonly clientProxy: ClientProxy,
-  ) {}
+  ) {
+    // console.log('producers - clientProxy', clientProxy)
+
+  }
 
   @Post()
   create(@Body() createProducerDto: CreateProducerDto) {
@@ -28,7 +31,10 @@ export class ProducersController {
 
   @Get()
   findAll() {
-    return this.clientProxy.send(ProducersPattern.FIND_ALL, {});
+    console.log('producers')
+    const a=  this.clientProxy.send(ProducersPattern.FIND_ALL, {});
+    console.log(a)
+    return a
   }
 
   @Get(':id')

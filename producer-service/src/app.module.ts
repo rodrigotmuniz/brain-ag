@@ -31,7 +31,7 @@ import { ProducersModule } from './producers/producers.module';
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
       // entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      entities: [Producer],
+      // entities: [Producer],
       autoLoadEntities: Boolean(process.env.DB_AUTOLOADENTITIES),
       synchronize: Boolean(process.env.DB_SYNCHRONIZE),
     }),
@@ -41,7 +41,14 @@ import { ProducersModule } from './producers/producers.module';
   // providers: [ProducersService],
 })
 export class AppModule {
-  constructor(private dataSource: DataSource) {
-    console.log();
+  constructor() {
+    console.log({
+      name: process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT',
+      transport: Transport.TCP, // TCP communication
+      options: {
+        host: process.env.PRODUCER_HOST ?? 'localhost',
+        port: Number(process.env.PORT || 3005),
+      }, // Microservice address
+    });
   }
 }
