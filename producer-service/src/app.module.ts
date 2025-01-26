@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ProducersController } from './producers.controller';
-import { ProducersService } from './producers.service';
 import { ConfigModule } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ProducersModule } from './producers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Producer } from './entities/producer.entity';
 import { DataSource } from 'typeorm';
+import { Producer } from './producers/entities/producer.entity';
+import { ProducersModule } from './producers/producers.module';
 
 @Module({
   imports: [

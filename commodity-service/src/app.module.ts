@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommoditiesModule } from './commodity/commodities.module';
+import { CommoditiesModule } from './commodities/commodities.module';
 
 @Module({
   imports: [
