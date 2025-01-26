@@ -1,6 +1,30 @@
 version: '3.9'
 
 services:
+  commodities-db:
+    image: postgres:15
+    container_name: commodities-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: commodities
+    ports:
+      - '5001:5432'
+    volumes:
+      - commodities-db-data:/var/lib/postgresql/data
+
+  crops-db:
+    image: postgres:15
+    container_name: crops-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crops
+    ports:
+      - '5002:5432'
+    volumes:
+      - crops-db-data:/var/lib/postgresql/data
+
   producers-db:
     image: postgres:15
     container_name: producers-db
@@ -9,9 +33,11 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: producers
     ports:
-      - "5003:5432"
+      - '5003:5432'
     volumes:
       - producers-db-data:/var/lib/postgresql/data
 
 volumes:
+  commodities-db-data:
+  crops-db-data:
   producers-db-data:
