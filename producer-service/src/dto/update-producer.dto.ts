@@ -1,4 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateUserDto } from './create-producer.dto';
+import { CreateProducerDto } from './create-producer.dto';
+import { IsNumber } from 'class-validator';
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateProducerDto extends PartialType(CreateProducerDto) {
+  @IsNumber()
+  id: number;
+}

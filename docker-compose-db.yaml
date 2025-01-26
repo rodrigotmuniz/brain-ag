@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  producers-db:
+    image: postgres:15
+    container_name: producers-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: producers
+    ports:
+      - "5003:5432"
+    volumes:
+      - producers-db-data:/var/lib/postgresql/data
+
+volumes:
+  producers-db-data:
