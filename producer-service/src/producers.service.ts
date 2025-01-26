@@ -11,28 +11,37 @@ export class ProducersService {
     @InjectRepository(Producer)
     private readonly repository: Repository<Producer>,
   ) {}
-  getHello(): string {
-    return 'Hello World!!!';
+
+  async create(createProducerDto: CreateProducerDto) {
+    const product = this.repository.create(createProducerDto);
+    const dbResult = await this.repository.save(product);
+    return dbResult;
   }
 
-  create(createProducerDto: CreateProducerDto) {
-    console.log(createProducerDto);
-    return this.repository.save(createProducerDto);
+  async findAll() {
+    const dbResult = await this.repository.find();
+    return dbResult;
   }
 
-  findAll() {
-    return `This action returns all producers!!`;
+  async findOne(id: number) {
+    console.log('sdfasdfasçdlfajçsdlkfçalskdfçlajç', typeof id);
+    const dbResult = await this.repository.findOneBy({ id });
+    return dbResult;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} producer`;
+  async update(updateProducerDto: UpdateProducerDto) {
+    const product = await this.repository.preload(updateProducerDto);
+    if (product) {
+      const dbResult = await this.repository.save(product);
+      return dbResult;
+    }
   }
 
-  update(id: number, updateProducerDto: UpdateProducerDto) {
-    return `This action updates a #${id} producer`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} producer`;
+  async remove(id: number) {
+    const producer = await this.repository.findOneBy({ id });
+    if (producer) {
+      const dbResult = await this.repository.remove([producer]);
+      return dbResult;
+    }
   }
 }

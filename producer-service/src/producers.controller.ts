@@ -9,11 +9,6 @@ import { ProducersPattern } from './producers.pattern';
 export class ProducersController {
   constructor(private readonly producersService: ProducersService) {}
 
-  @MessagePattern(process.env.HELLO_PATTERN || 'HELLO_PATTERN')
-  getHello(): string {
-    return this.producersService.getHello();
-  }
-
   @MessagePattern(ProducersPattern.CREATE)
   create(@Payload() createProducerDto: CreateProducerDto) {
     return this.producersService.create(createProducerDto);
@@ -24,20 +19,17 @@ export class ProducersController {
     return this.producersService.findAll();
   }
 
-  @MessagePattern('findOneProducer')
+  @MessagePattern(ProducersPattern.FIND_ONE)
   findOne(@Payload() id: number) {
     return this.producersService.findOne(id);
   }
 
-  @MessagePattern('updateProducer')
+  @MessagePattern(ProducersPattern.UPDATE)
   update(@Payload() updateProducerDto: UpdateProducerDto) {
-    return this.producersService.update(
-      updateProducerDto.id,
-      updateProducerDto,
-    );
+    return this.producersService.update(updateProducerDto);
   }
 
-  @MessagePattern('removeProducer')
+  @MessagePattern(ProducersPattern.REMOVE)
   remove(@Payload() id: number) {
     return this.producersService.remove(id);
   }

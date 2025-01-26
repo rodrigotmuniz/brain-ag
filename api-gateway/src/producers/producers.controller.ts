@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Body, Inject } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Inject,
+  Param,
+  Patch,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { CreateProducerDto } from './dto/create-producer.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { ProducersPattern } from './producers.pattern';
+import { UpdateProducerDto } from './dto/update-producer.dto';
 
 @Controller('producers')
 export class ProducersController {
@@ -20,21 +31,24 @@ export class ProducersController {
     return this.clientProxy.send(ProducersPattern.FIND_ALL, {});
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.producersService.findOne(+id);
-  // }
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.clientProxy.send(ProducersPattern.FIND_ONE, id);
+  }
 
-  // @Patch(':id')
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updateProducerDto: UpdateProducerDto,
-  // ) {
-  //   return this.producersService.update(+id, updateProducerDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProducerDto: UpdateProducerDto,
+  ) {
+    return this.clientProxy.send(ProducersPattern.UPDATE, {
+      ...updateProducerDto,
+      id,
+    });
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.producersService.remove(+id);
-  // }
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.clientProxy.send(ProducersPattern.REMOVE, id);
+  }
 }
