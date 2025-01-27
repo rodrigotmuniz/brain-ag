@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateLocationDto } from '../dtos/create-location.dto';
-import { UpdateLocationDto } from '../dtos/update-location.dto';
-import { Location } from '../entities/location.entity';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { CreateLocationDto } from '../dtos/create-location.dto'
+import { UpdateLocationDto } from '../dtos/update-location.dto'
+import { Location } from '../entities/location.entity'
 
 @Injectable()
 export class LocationsService {
@@ -16,43 +16,41 @@ export class LocationsService {
     const product = this.repository.create({
       city: createLocationDto.city,
       state: createLocationDto.state,
-    });
+    })
 
-    const dbResult = await this.repository.save(product);
-    return dbResult;
+    const dbResult = await this.repository.save(product)
+    return dbResult
   }
 
   async findAll() {
-    const dbResult = await this.repository.find();
-    return dbResult;
+    const dbResult = await this.repository.find()
+    return dbResult
   }
 
   async findOne(id: number) {
-    const dbResult = await this.repository.findOneBy({ id });
-    return dbResult;
+    const dbResult = await this.repository.findOneBy({ id })
+    return dbResult
   }
 
   async update(id: number, updateLocationDto: UpdateLocationDto) {
-    console.log('updateLocationDto', updateLocationDto);
-    const product = await this.repository.findOneBy({ id });
-    console.log('product', product);
+    const product = await this.repository.findOneBy({ id })
     if (product) {
-      const { city, state } = updateLocationDto;
-      product.state = state ? state : product.state;
-      product.city = city ? city : product.city;
+      const { city, state } = updateLocationDto
+      product.state = state ? state : product.state
+      product.city = city ? city : product.city
 
-      const updateProduct = this.repository.create(product);
+      const updateProduct = this.repository.create(product)
 
-      const dbResult = await this.repository.save(updateProduct);
-      return dbResult;
+      const dbResult = await this.repository.save(updateProduct)
+      return dbResult
     }
   }
 
   async remove(id: number) {
-    const location = await this.repository.findOneBy({ id });
+    const location = await this.repository.findOneBy({ id })
     if (location) {
-      const dbResult = await this.repository.remove([location]);
-      return dbResult;
+      const dbResult = await this.repository.remove([location])
+      return dbResult
     }
   }
 
@@ -60,7 +58,17 @@ export class LocationsService {
     const dbResult = await this.repository.findOne({
       where: { id },
       select: { id: true },
-    });
-    return !!dbResult;
+    })
+    return !!dbResult
+  }
+
+  async findGroupedStates() {
+    return this.repository
+      .createQueryBuilder()
+      .select('state')
+      .addSelect('COUNT(id)', 'count')
+      .groupBy('state')
+      .orderBy('count', 'DESC')
+      .getRawMany()
   }
 }

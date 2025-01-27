@@ -22,6 +22,11 @@ export class DashboardsController {
     return this.dashboardsService.findTotalArea()
   }
 
+  @MessagePattern(DashboardsPattern.FIND_GROUPED_STATES)
+  findGroupedStates() {
+    return this.dashboardsService.findGroupedStates()
+  }
+
   // @MessagePattern(DashboardPattern.FIND_ONE)
   // findOne(@Payload() id: number) {
   //   return this.dashboardsService.findOne(id)

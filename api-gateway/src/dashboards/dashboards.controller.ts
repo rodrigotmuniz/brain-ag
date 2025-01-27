@@ -13,12 +13,26 @@ export class DashboardsController {
 
   @Get('find-properties-amount')
   findPropertiesAmount() {
-    console.log('findPropertiesAmount')
     return this.clientProxy.send(DashboardsPattern.FIND_PROPERTIES_AMOUNT, {})
   }
 
   @Get('find-total-area')
   findTotalArea() {
     return this.clientProxy.send(DashboardsPattern.FIND_TOTAL_AREA, {})
+  }
+
+  @Get('find-grouped-states')
+  findGroupStates() {
+    return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_STATES, {})
+  }
+
+  @Get('find-grouped-crops')
+  findGroupedCrops() {
+    return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_CROPS, {})
+  }
+
+  @Get('find-groupedLandUsed')
+  findGroupedLandUsed() {
+    return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_LAND_USED, {})
   }
 }

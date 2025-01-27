@@ -37,4 +37,9 @@ export class LocationsController {
   exists(@Payload() id: number) {
     return this.locationsService.exists(id);
   }
+
+  @MessagePattern(LocationsPattern.FIND_GROUPED_STATES)
+  findGroupedStates() {
+    return this.locationsService.findGroupedStates();
+  }
 }

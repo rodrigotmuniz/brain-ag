@@ -10,18 +10,9 @@ export class LocationsService {
     private readonly clientProxy: ClientProxy,
   ) {}
 
-  async existsOrFail(id: number) {
-    const observable = this.clientProxy.send(LocationsPattern.EXISTS, id);
-    const exists = await lastValueFrom<boolean>(observable);
-    if (!exists) {
-      throw new NotFoundException(`Location not found. No location exists with the provided ID: ${id}.`);
-    }
-    return exists;
-  }
-
-  async exists(id: number) {
-    const observable = this.clientProxy.send(LocationsPattern.EXISTS, id);
-    const exists = await lastValueFrom<boolean>(observable);
-    return exists;
+  async findGroupedStates() {
+    const observable = this.clientProxy.send(LocationsPattern.FIND_GROUPED_STATES, {});
+    const groupedStates = await lastValueFrom(observable);
+    return groupedStates;
   }
 }

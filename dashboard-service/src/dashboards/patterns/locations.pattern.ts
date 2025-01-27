@@ -5,4 +5,5 @@ export enum LocationsPattern {
   UPDATE = 'location-service.update',
   REMOVE = 'location-service.remove',
   EXISTS = 'location-service.exists',
+  FIND_GROUPED_STATES = 'location-service.findGroupedStates',
 }
