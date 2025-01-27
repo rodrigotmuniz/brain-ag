@@ -6,6 +6,8 @@ import { Crop } from './entities/crop.entity'
 import { CropsService } from './services/crops.service'
 import { CommoditiesService } from './services/commodities.service'
 import { PropertiesService } from './services/properties.service'
+import { CommodityExistsValidator } from './validators/commodity-exists.validator'
+import { PropertyExistsValidator } from './validators/property-exists.validator'
 
 @Module({
   imports: [
@@ -15,8 +17,8 @@ import { PropertiesService } from './services/properties.service'
         name: process.env.PROPERTY_SERVICE_CLIENT || 'PROPERTY_SERVICE_CLIENT',
         transport: Transport.TCP, // TCP communication
         options: {
-          host: process.env.PRODUCER_HOST ?? 'localhost',
-          port: Number(process.env.PRODUCER_PORT || 3006),
+          host: process.env.PROPERTY_HOST ?? 'localhost',
+          port: Number(process.env.PROPERTY_PORT || 3006),
         }, // Microservice address
       },
     ]),
@@ -25,13 +27,13 @@ import { PropertiesService } from './services/properties.service'
         name: process.env.COMMODITY_SERVICE_CLIENT || 'COMMODITY_SERVICE_CLIENT',
         transport: Transport.TCP, // TCP communication
         options: {
-          host: process.env.LOCATION_HOST ?? 'localhost',
-          port: Number(process.env.LOCATION_PORT || 3001),
+          host: process.env.COMMODITY_HOST ?? 'localhost',
+          port: Number(process.env.COMMODITY_PORT || 3001),
         }, // Microservice address
       },
     ]),
   ],
   controllers: [CropsController],
-  providers: [CropsService, CommoditiesService, PropertiesService],
+  providers: [CropsService, CommoditiesService, PropertiesService, CommodityExistsValidator, PropertyExistsValidator],
 })
 export class CropsModule {}

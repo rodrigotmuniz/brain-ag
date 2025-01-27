@@ -5,6 +5,7 @@ import { CropsModule } from './crops/crops.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AppErrorFilter } from './crops/filters/app-error.filter';
 import { AppHttpExceptionFilter } from './crops/filters/app-http-exception.filter';
+import { AppQueryFailedErrorFilter } from './crops/filters/app-query-failed-error.filter';
 
 @Module({
   imports: [
@@ -34,6 +35,10 @@ import { AppHttpExceptionFilter } from './crops/filters/app-http-exception.filte
     {
       provide: APP_FILTER,
       useClass: AppHttpExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppQueryFailedErrorFilter,
     },
   ],
 })

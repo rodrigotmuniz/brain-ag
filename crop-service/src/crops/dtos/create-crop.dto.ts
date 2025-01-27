@@ -1,4 +1,6 @@
-import { IsInt, IsNumber, IsPositive, IsString, Max, Min, MinLength } from 'class-validator'
+import { IsInt, IsNumber, IsPositive, IsString, Max, Min, MinLength, Validate } from 'class-validator'
+import { CommodityExistsValidator } from '../validators/commodity-exists.validator'
+import { PropertyExistsValidator } from '../validators/property-exists.validator'
 
 export class CreateCropDto {
   @IsInt({ message: 'Year must be an integer.' })
@@ -7,8 +9,10 @@ export class CreateCropDto {
   year: number
 
   @IsPositive()
+  @Validate(CommodityExistsValidator)
   commodityId: number
 
   @IsPositive()
+  @Validate(PropertyExistsValidator)
   propertyId: number
 }

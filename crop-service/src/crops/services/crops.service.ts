@@ -12,19 +12,10 @@ export class CropsService {
   constructor(
     @InjectRepository(Crop)
     private readonly repository: Repository<Crop>,
-
-    private readonly commoditiesService: CommoditiesService,
-    private readonly propertiesService: PropertiesService,
   ) {}
 
   async create(createCropDto: CreateCropDto) {
-    await Promise.all([
-      this.commoditiesService.existsOrFail(createCropDto.commodityId),
-      this.propertiesService.existsOrFail(createCropDto.propertyId),
-    ])
-
     const newCrop = this.repository.create(createCropDto)
-
     const savedCrop = await this.repository.save(newCrop)
     return savedCrop
   }

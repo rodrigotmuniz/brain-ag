@@ -26,8 +26,7 @@ export class PropertiesController {
 
   @MessagePattern(PropertyPattern.UPDATE)
   update(@Payload() updatePropertyDto: UpdatePropertyDto) {
-  // update(@Payload() {id, data}: {id: number, data: UpdatePropertyDto}) {
-    return this.propertiesService.update(14, updatePropertyDto);
+    return this.propertiesService.update(updatePropertyDto);
   }
 
   @MessagePattern(PropertyPattern.REMOVE)

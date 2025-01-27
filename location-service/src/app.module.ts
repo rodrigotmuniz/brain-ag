@@ -1,8 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { LocationsModule } from 'src/locations/locations.module';
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { APP_FILTER } from '@nestjs/core'
+import { ClientsModule, Transport } from '@nestjs/microservices'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { LocationsModule } from 'src/locations/locations.module'
+import { AppErrorFilter } from './locations/filters/app-error.filter'
+import { AppHttpExceptionFilter } from './locations/filters/app-http-exception.filter'
+import { AppQueryFailedErrorFilter } from './locations/filters/app-query-failed-error.filter'
 
 @Module({
   imports: [
@@ -28,18 +32,29 @@ import { LocationsModule } from 'src/locations/locations.module';
       username: process.env.DB_USERNAME,
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
-      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      // entities: [Producer],
       autoLoadEntities: Boolean(process.env.DB_AUTOLOADENTITIES),
       synchronize: Boolean(process.env.DB_SYNCHRONIZE),
     }),
     LocationsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppErrorFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppHttpExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppQueryFailedErrorFilter,
+    },
+  ],
 })
 export class AppModule {
   constructor() {
-    console.log();
+    console.log()
   }
 }

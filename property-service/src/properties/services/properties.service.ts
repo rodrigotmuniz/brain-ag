@@ -4,29 +4,16 @@ import { FindOptionsSelect, Repository } from 'typeorm'
 import { CreatePropertyDto } from '../dtos/create-property.dto'
 import { UpdatePropertyDto } from '../dtos/update-property.dto'
 import { Property } from '../entities/property.entity'
-import { LocationsService } from './locations.service'
-import { ProducersService } from './producers.service'
-import { LocationExistsValidator } from '../validators/location-exists.validator'
 
 @Injectable()
 export class PropertiesService {
   constructor(
     @InjectRepository(Property)
     private readonly repository: Repository<Property>,
-
-    // private readonly producersService: ProducersService,
-    // private readonly locationsService: LocationsService,
-    // private readonly bla: LocationExistsValidator
   ) {}
 
   async create(createPropertyDto: CreatePropertyDto) {
-    // await Promise.all([
-    //   this.producersService.existsOrFail(createPropertyDto.producerId),
-    //   this.locationsService.existsOrFail(createPropertyDto.locationId),
-    // ])
-    // this.bla.validate(1, {value: 1} as any)
     const newProperty = this.repository.create(createPropertyDto)
-
     const savedProperty = await this.repository.save(newProperty)
     return savedProperty
   }
@@ -49,15 +36,16 @@ export class PropertiesService {
     return foundProperty
   }
 
-  async update(id: number, data: UpdatePropertyDto) {
+  async update(updatePropertyDto: UpdatePropertyDto) {
+    const {id, ...payload} = updatePropertyDto
     const foundProperty = await this.findByIdOrFail(id)
 
     const updateProperty = this.repository.create({
       ...foundProperty,
-      ...data,
+      ...payload,
     })
 
-    await this.repository.update({ id }, updateProperty)
+    await this.repository.update({ id }, payload)
     return updateProperty
   }
 

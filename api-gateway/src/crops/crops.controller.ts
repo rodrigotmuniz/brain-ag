@@ -15,6 +15,7 @@ export class CropsController {
 
   @Post()
   create(@Body() createCropDto: CreateCropDto) {
+    console.log('create')
     return this.clientProxy.send(CropsPattern.CREATE, createCropDto)
   }
 

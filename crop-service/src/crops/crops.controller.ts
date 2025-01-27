@@ -10,6 +10,7 @@ export class CropsController {
 
   @MessagePattern(CropPattern.CREATE)
   create(@Payload() createCropDto: CreateCropDto) {
+    console.log('create')
     return this.cropsService.create(createCropDto)
   }
 

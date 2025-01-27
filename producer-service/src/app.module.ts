@@ -5,6 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Producer } from './producers/entities/producer.entity';
 import { ProducersModule } from './producers/producers.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AppErrorFilter } from './producers/filters/app-error.filter';
+import { AppHttpExceptionFilter } from './producers/filters/app-http-exception.filter';
+import { AppQueryFailedErrorFilter } from './producers/filters/app-query-failed-error.filter';
 
 @Module({
   imports: [
@@ -38,7 +42,20 @@ import { ProducersModule } from './producers/producers.module';
     ProducersModule,
   ],
   // controllers: [ProducersController],
-  // providers: [ProducersService],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppErrorFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppHttpExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppQueryFailedErrorFilter,
+    },
+  ],
 })
 export class AppModule {
   constructor() {

@@ -6,6 +6,7 @@ import { AppErrorFilter } from './properties/filters/app-error.filter';
 import { PropertiesModule } from './properties/properties.module';
 import { AppHttpExceptionFilter } from './properties/filters/app-http-exception.filter';
 import { LocationExistsValidator } from './properties/validators/location-exists.validator';
+import { AppQueryFailedErrorFilter } from './properties/filters/app-query-failed-error.filter';
 
 @Module({
   imports: [
@@ -21,8 +22,6 @@ import { LocationExistsValidator } from './properties/validators/location-exists
       username: process.env.DB_USERNAME,
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
-      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      // entities: [Producer],
       autoLoadEntities: Boolean(process.env.DB_AUTOLOADENTITIES),
       synchronize: Boolean(process.env.DB_SYNCHRONIZE),
     }),
@@ -37,6 +36,10 @@ import { LocationExistsValidator } from './properties/validators/location-exists
     {
       provide: APP_FILTER,
       useClass: AppHttpExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppQueryFailedErrorFilter,
     },
   ],
 })

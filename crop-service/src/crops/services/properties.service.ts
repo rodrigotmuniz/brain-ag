@@ -10,9 +10,13 @@ export class PropertiesService {
     private readonly clientProxy: ClientProxy,
   ) {}
 
-  async existsOrFail(id: number) {
+  async exists(id: number) {
     const observable = this.clientProxy.send(PropertiesPattern.EXISTS, id)
-    const exists = await lastValueFrom(observable)
+    const exists = await lastValueFrom<boolean>(observable)
+    return exists
+  }
+  async existsOrFail(id: number) {
+    const exists = await this.exists(id)
     if (!exists) {
       throw new NotFoundException(`Property not found. No property exists with the provided ID: ${id}.`)
     }

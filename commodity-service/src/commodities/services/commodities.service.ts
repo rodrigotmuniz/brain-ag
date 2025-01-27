@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCommodityDto } from './dto/create-commodity.dto';
-import { UpdateCommodityDto } from './dto/update-commodity.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Commodity } from './entities/commodity.entity';
-import { Repository } from 'typeorm';
+import { FindOptionsSelect, Repository } from 'typeorm';
+import { CreateCommodityDto } from '../dtos/create-commodity.dto';
+import { UpdateCommodityDto } from '../dtos/update-commodity.dto';
+import { Commodity } from '../entities/commodity.entity';
 
 @Injectable()
 export class CommoditiesService {
@@ -13,34 +13,55 @@ export class CommoditiesService {
   ) {}
 
   async create(createCommodityDto: CreateCommodityDto) {
-    const product = this.repository.create(createCommodityDto);
-    const dbResult = await this.repository.save(product);
-    return dbResult;
+    const newCommodity = this.repository.create(createCommodityDto);
+    const savedCommodity = await this.repository.save(newCommodity);
+    return savedCommodity;
   }
 
   async findAll() {
-    const dbResult = await this.repository.find();
-    return dbResult;
+    const foundCommodity = await this.repository.find();
+    return foundCommodity;
   }
 
   async findOne(id: number) {
-    const dbResult = await this.repository.findOneBy({ id });
-    return dbResult;
+    const foundCommodity = await this.repository.findOneBy({ id });
+    return foundCommodity;
+  }
+
+  async findByIdOrFail(id: number, select?: FindOptionsSelect<Commodity>) {
+    const foundCommodity = await this.repository.findOne({ where: { id }, select })
+    if (!foundCommodity) {
+      throw new NotFoundException(`Commodity not found. No commodity exists with the provided ID: ${id}.`)
+    }
+    return foundCommodity
   }
 
   async update(updateCommodityDto: UpdateCommodityDto) {
-    const product = await this.repository.preload(updateCommodityDto);
-    if (product) {
-      const dbResult = await this.repository.save(product);
-      return dbResult;
-    }
+    const {id, ...payload} = updateCommodityDto
+    const foundCommodity = await this.findByIdOrFail(id)
+
+    const updateCommodity = this.repository.create({
+      ...foundCommodity,
+      ...payload,
+    })
+
+    await this.repository.update({ id }, payload)
+    return updateCommodity
   }
 
   async remove(id: number) {
-    const commodity = await this.repository.findOneBy({ id });
-    if (commodity) {
-      const dbResult = await this.repository.remove([commodity]);
-      return dbResult;
+    const foundCommodity = await this.repository.findOneBy({ id });
+    if (foundCommodity) {
+      const removedCommodity = await this.repository.remove([foundCommodity]);
+      return removedCommodity;
     }
+  }
+
+  async exists(id: number) {
+    const foundCommodity = await this.repository.findOne({
+      where: { id },
+      select: { id: true },
+    })
+    return !!foundCommodity
   }
 }
