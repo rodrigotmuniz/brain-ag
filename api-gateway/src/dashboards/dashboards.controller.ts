@@ -9,9 +9,7 @@ export class DashboardsController {
   constructor(
     @Inject(process.env.DASHBOARDS_SERVICE_CLIENT || 'DASHBOARDS_SERVICE_CLIENT')
     private readonly clientProxy: ClientProxy,
-  ) {
-  }
-
+  ) {}
 
   @Get('find-properties-amount')
   findPropertiesAmount() {
@@ -19,4 +17,8 @@ export class DashboardsController {
     return this.clientProxy.send(DashboardsPattern.FIND_PROPERTIES_AMOUNT, {})
   }
 
+  @Get('find-total-area')
+  findTotalArea() {
+    return this.clientProxy.send(DashboardsPattern.FIND_TOTAL_AREA, {})
+  }
 }

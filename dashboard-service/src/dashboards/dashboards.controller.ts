@@ -14,8 +14,12 @@ export class DashboardsController {
 
   @MessagePattern(DashboardsPattern.FIND_PROPERTIES_AMOUNT)
   findPropertiesAmount() {
-    console.log('findPropertiesAmount')
     return this.dashboardsService.findPropertiesAmount()
+  }
+
+  @MessagePattern(DashboardsPattern.FIND_TOTAL_AREA)
+  findTotalArea() {
+    return this.dashboardsService.findTotalArea()
   }
 
   // @MessagePattern(DashboardPattern.FIND_ONE)

@@ -15,4 +15,10 @@ export class PropertiesService {
     const propertiesAmount = await lastValueFrom(observable)
     return propertiesAmount
   }
+
+  async findTotalArea() {
+    const observable = this.clientProxy.send(PropertiesPattern.FIND_TOTAL_AREA, {})
+    const propertiesAmount = await lastValueFrom(observable)
+    return propertiesAmount
+  }
 }

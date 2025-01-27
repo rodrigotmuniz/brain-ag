@@ -19,6 +19,11 @@ export class DashboardsService {
     return propertiesAmount
   }
 
+  async findTotalArea() {
+    const totalAreaSum = await this.propertiesService.findTotalArea()
+    return totalAreaSum
+  }
+
   // async findOne(id: number) {
   //   const foundDashboard = await this.repository.findOneBy({ id })
   //   return foundDashboard

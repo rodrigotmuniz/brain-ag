@@ -67,4 +67,9 @@ export class PropertiesService {
     const propertiesAmount = await this.repository.count()
     return { propertiesAmount }
   }
+
+  async findTotalArea() {
+    const totalAreaSum = await this.repository.sum('totalArea')
+    return { totalAreaSum }
+  }
 }
