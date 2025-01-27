@@ -31,10 +31,7 @@ export class ProducersController {
 
   @Get()
   findAll() {
-    console.log('producers')
-    const a=  this.clientProxy.send(ProducersPattern.FIND_ALL, {});
-    console.log(a)
-    return a
+    return this.clientProxy.send(ProducersPattern.FIND_ALL, {});
   }
 
   @Get(':id')

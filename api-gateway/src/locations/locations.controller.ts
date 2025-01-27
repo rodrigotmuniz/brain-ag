@@ -30,10 +30,7 @@ export class LocationsController {
 
   @Get()
   findAll() {
-    console.log('location')
-    const a=  this.clientProxy.send(LocationsPattern.FIND_ALL, {});
-    console.log(a)
-    return a
+    return this.clientProxy.send(LocationsPattern.FIND_ALL, {});
   }
 
   @Get(':id')

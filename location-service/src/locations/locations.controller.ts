@@ -25,9 +25,7 @@ export class LocationsController {
   }
 
   @MessagePattern(LocationsPattern.UPDATE)
-  update(@Payload() {id, ...data}) {
-    console.log('payload', {id, data})
-
+  update(@Payload() { id, ...data }) {
     return this.locationsService.update(id, data);
   }
 

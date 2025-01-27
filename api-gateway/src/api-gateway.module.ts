@@ -3,6 +3,7 @@ import { ProducersModule } from './producers/producers.module';
 import { ConfigModule } from '@nestjs/config';
 import { CommoditiesModule } from './commodities/commodities.module';
 import { LocationsModule } from './locations/locations.module';
+import { PropertiesModule } from './properties/properties.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { LocationsModule } from './locations/locations.module';
     CommoditiesModule,
     ProducersModule,
     LocationsModule,
+    PropertiesModule,
   ],
   controllers: [],
   providers: [],
