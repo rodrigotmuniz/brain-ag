@@ -1,12 +1,13 @@
-import { IsNumber, IsString, Max, Min, MinLength } from 'class-validator';
+import { IsNumber, IsString, Matches, Max, Min, MinLength, Validate } from 'class-validator';
+import { CpfCnpjValidator } from '../validators/cpf-cnpj.validator';
 
 export class CreateProducerDto {
   @IsString()
-  @MinLength(5)
+  @MinLength(3)
   name: string;
 
-  @IsNumber()
-  @Min(9)
-  @Max(11)
-  cpfCnjp: string;
+  @IsString()
+  @Matches(/^\d*$/, { message: 'Input must contain only numeric characters' })
+  @Validate(CpfCnpjValidator)
+  cpfCnpj: string;
 }

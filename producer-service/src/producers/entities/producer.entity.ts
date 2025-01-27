@@ -8,6 +8,6 @@ export class Producer {
   @Column()
   name: string;
 
-  @Column({ unique: true, type: 'bigint' })
-  cpfCnpj: number;
+  @Column({ unique: true })
+  cpfCnpj: string;
 }

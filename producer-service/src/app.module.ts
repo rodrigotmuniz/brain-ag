@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
-import { Producer } from './producers/entities/producer.entity';
-import { ProducersModule } from './producers/producers.module';
-import { APP_FILTER } from '@nestjs/core';
-import { AppErrorFilter } from './producers/filters/app-error.filter';
-import { AppHttpExceptionFilter } from './producers/filters/app-http-exception.filter';
-import { AppQueryFailedErrorFilter } from './producers/filters/app-query-failed-error.filter';
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { ClientsModule, Transport } from '@nestjs/microservices'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { DataSource } from 'typeorm'
+import { Producer } from './producers/entities/producer.entity'
+import { ProducersModule } from './producers/producers.module'
+import { APP_FILTER } from '@nestjs/core'
+import { AppErrorFilter } from './producers/filters/app-error.filter'
+import { AppHttpExceptionFilter } from './producers/filters/app-http-exception.filter'
+import { AppQueryFailedErrorFilter } from './producers/filters/app-query-failed-error.filter'
 
 @Module({
   imports: [
@@ -20,11 +20,10 @@ import { AppQueryFailedErrorFilter } from './producers/filters/app-query-failed-
     ClientsModule.register([
       {
         name: process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT',
-        transport: Transport.TCP, // TCP communication
         options: {
           host: process.env.PRODUCER_HOST ?? 'localhost',
           port: Number(process.env.PORT || 3005),
-        }, // Microservice address
+        },
       },
     ]),
     TypeOrmModule.forRoot({
@@ -34,8 +33,6 @@ import { AppQueryFailedErrorFilter } from './producers/filters/app-query-failed-
       username: process.env.DB_USERNAME,
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
-      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      // entities: [Producer],
       autoLoadEntities: Boolean(process.env.DB_AUTOLOADENTITIES),
       synchronize: Boolean(process.env.DB_SYNCHRONIZE),
     }),
@@ -57,15 +54,4 @@ import { AppQueryFailedErrorFilter } from './producers/filters/app-query-failed-
     },
   ],
 })
-export class AppModule {
-  constructor() {
-    console.log({
-      name: process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT',
-      transport: Transport.TCP, // TCP communication
-      options: {
-        host: process.env.PRODUCER_HOST ?? 'localhost',
-        port: Number(process.env.PORT || 3005),
-      }, // Microservice address
-    });
-  }
-}
+export class AppModule {}
