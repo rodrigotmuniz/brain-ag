@@ -1,35 +1,83 @@
-import { Injectable } from '@nestjs/common';
-// import { UpdateCropDto } from './dto/update-crop.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateCropDto } from '../dtos/create-crop.dto';
-import { Crop } from '../entities/crop.entity';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { FindOptionsSelect, Repository } from 'typeorm'
+import { CreateCropDto } from '../dtos/create-crop.dto'
+import { UpdateCropDto } from '../dtos/update-crop.dto'
+import { Crop } from '../entities/crop.entity'
+import { CommoditiesService } from './commodities.service'
+import { PropertiesService } from './properties.service'
 
 @Injectable()
 export class CropsService {
   constructor(
     @InjectRepository(Crop)
     private readonly repository: Repository<Crop>,
+
+    private readonly commoditiesService: CommoditiesService,
+    private readonly propertiesService: PropertiesService,
   ) {}
 
-  create(createCropDto: CreateCropDto) {
-    console.log(createCropDto);
-    return this.repository.find();
+  async create(createCropDto: CreateCropDto) {
+    await Promise.all([
+      this.commoditiesService.existsOrFail(createCropDto.commodityId),
+      this.propertiesService.existsOrFail(createCropDto.propertyId),
+    ])
+
+    const newCrop = this.repository.create(createCropDto)
+
+    const savedCrop = await this.repository.save(newCrop)
+    return savedCrop
   }
 
-  // findAll() {
-  //   return `This action returns all crops`;
-  // }
+  async findAll() {
+    const foundCrop = await this.repository.find()
+    return foundCrop
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} crop`;
-  // }
+  async findOne(id: number) {
+    const foundCrop = await this.repository.findOneBy({ id })
+    return foundCrop
+  }
 
-  // update(id: number, updateCropDto: UpdateCropDto) {
-  //   return `This action updates a #${id} crop`;
-  // }
+  async findByIdOrFail(id: number, select?: FindOptionsSelect<Crop>) {
+    const foundCrop = await this.repository.findOne({ where: { id }, select })
+    if (!foundCrop) {
+      throw new NotFoundException(`Crop not found. No crop exists with the provided ID: ${id}.`)
+    }
+    return foundCrop
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} crop`;
-  // }
+  async update(id: number, data: UpdateCropDto) {
+    const foundCrop = await this.findByIdOrFail(id)
+
+    const updateCrop = this.repository.create({
+      ...foundCrop,
+      ...data,
+    })
+
+    await this.repository.update({ id }, updateCrop)
+    return updateCrop
+  }
+
+  async remove(id: number) {
+    const foundCrop = await this.findByIdOrFail(id)
+    const removedCrop = await this.repository.remove([foundCrop])
+    return removedCrop
+  }
+
+  async exists(id: number) {
+    const foundCrop = await this.repository.findOne({
+      where: { id },
+      select: { id: true },
+    })
+    return !!foundCrop
+  }
+
+  private async existsOrFail(id: number) {
+    const exists = await this.exists(id)
+    if (!exists) {
+      throw new NotFoundException(`Crop not found. No crop exists with the provided ID: ${id}.`)
+    }
+    return exists
+  }
 }

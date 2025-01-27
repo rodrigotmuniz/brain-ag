@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ValidationPipe } from '@nestjs/common';
+import { useContainer } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -19,6 +20,7 @@ async function bootstrap() {
       transform: false, // tenta transformar os tipos de dados de param e dtos
     }),
   )
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen();
 }
 

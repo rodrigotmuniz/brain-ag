@@ -1,35 +1,41 @@
-// import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { Body, Controller, Get } from '@nestjs/common';
-import { CreateCropDto } from './dtos/create-crop.dto';
-import { CropsService } from './services/crops.service';
-// import { UpdateCropDto } from './dto/update-crop.dto';
-//
-@Controller('crops')
+import { Controller } from '@nestjs/common'
+import { MessagePattern, Payload } from '@nestjs/microservices'
+import { CreateCropDto } from './dtos/create-crop.dto'
+import { CropPattern } from './patterns/crops.pattern'
+import { CropsService } from './services/crops.service'
+
+@Controller()
 export class CropsController {
   constructor(private readonly cropsService: CropsService) {}
 
-  @Get()
-  create(@Body() createCropDto: CreateCropDto) {
-    return this.cropsService.create(createCropDto);
+  @MessagePattern(CropPattern.CREATE)
+  create(@Payload() createCropDto: CreateCropDto) {
+    return this.cropsService.create(createCropDto)
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.cropsService.findAll();
-  // }
+  @MessagePattern(CropPattern.FIND_ALL)
+  findAll() {
+    return this.cropsService.findAll()
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.cropsService.findOne(+id);
-  // }
+  @MessagePattern(CropPattern.FIND_ONE)
+  findOne(@Payload() id: number) {
+    return this.cropsService.findOne(id)
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCropDto: UpdateCropDto) {
-  //   return this.cropsService.update(+id, updateCropDto);
-  // }
+  @MessagePattern(CropPattern.UPDATE)
+  update(@Payload() { id, ...data }: { id: number }) {
+    console.log(data)
+    return this.cropsService.update(id, data)
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.cropsService.remove(+id);
-  // }
+  @MessagePattern(CropPattern.REMOVE)
+  remove(@Payload() id: number) {
+    return this.cropsService.remove(id)
+  }
+
+  @MessagePattern(CropPattern.EXISTS)
+  exists(@Payload() id: number) {
+    return this.cropsService.exists(id)
+  }
 }

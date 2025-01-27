@@ -1,11 +1,14 @@
-import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Property } from './entities/property.entity';
-import { PropertiesController } from './properties.controller';
-import { LocationsService } from './services/locations.service';
-import { ProducersService } from './services/producers.service';
-import { PropertiesService } from './services/properties.service';
+import { Module } from '@nestjs/common'
+import { ClientsModule, Transport } from '@nestjs/microservices'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { Property } from './entities/property.entity'
+import { PropertiesController } from './properties.controller'
+import { LocationsService } from './services/locations.service'
+import { ProducersService } from './services/producers.service'
+import { PropertiesService } from './services/properties.service'
+import { LocationExistsValidator } from './validators/location-exists.validator'
+import { ProducerExistsValidator } from './validators/producer-exists.validator'
+import { TotalAreaSizeValidator } from './validators/total-area-size.validator'
 
 @Module({
   imports: [
@@ -32,6 +35,13 @@ import { PropertiesService } from './services/properties.service';
     ]),
   ],
   controllers: [PropertiesController],
-  providers: [PropertiesService, ProducersService, LocationsService],
+  providers: [
+    PropertiesService,
+    ProducersService,
+    LocationsService,
+    LocationExistsValidator,
+    ProducerExistsValidator,
+    TotalAreaSizeValidator,
+  ],
 })
 export class PropertiesModule {}

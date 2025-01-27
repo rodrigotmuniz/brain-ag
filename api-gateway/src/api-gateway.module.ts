@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER } from '@nestjs/core';
-import { CommoditiesModule } from './commodities/commodities.module';
-import { AppAllExceptionsFilter } from './commons/filters/app-all-exceptions.filter';
-import { LocationsModule } from './locations/locations.module';
-import { ProducersModule } from './producers/producers.module';
-import { PropertiesModule } from './properties/properties.module';
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { APP_FILTER } from '@nestjs/core'
+import { CommoditiesModule } from './commodities/commodities.module'
+import { AppAllExceptionsFilter } from './commons/filters/app-all-exceptions.filter'
+import { LocationsModule } from './locations/locations.module'
+import { ProducersModule } from './producers/producers.module'
+import { PropertiesModule } from './properties/properties.module'
+import { CropsModule } from './crops/crops.module'
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { PropertiesModule } from './properties/properties.module';
     ProducersModule,
     LocationsModule,
     PropertiesModule,
+    CropsModule,
   ],
   controllers: [],
   providers: [

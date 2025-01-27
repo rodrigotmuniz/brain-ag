@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CropsModule } from './crops/crops.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { CropsModule } from './crops/crops.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AppErrorFilter } from './crops/filters/app-error.filter';
+import { AppHttpExceptionFilter } from './crops/filters/app-http-exception.filter';
 
 @Module({
   imports: [
@@ -17,14 +20,21 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USERNAME,
       database: process.env.DB_NAME,
       password: process.env.DB_PASSWORD,
-      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      // entities: [Producer],
       autoLoadEntities: Boolean(process.env.DB_AUTOLOADENTITIES),
       synchronize: Boolean(process.env.DB_SYNCHRONIZE),
     }),
     CropsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppErrorFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppHttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
