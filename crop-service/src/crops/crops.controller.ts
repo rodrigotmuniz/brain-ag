@@ -1,7 +1,7 @@
 // import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { Controller, Get, Body } from '@nestjs/common';
-import { CropsService } from './crops.service';
-import { CreateCropDto } from './dto/create-crop.dto';
+import { Body, Controller, Get } from '@nestjs/common';
+import { CreateCropDto } from './dtos/create-crop.dto';
+import { CropsService } from './services/crops.service';
 // import { UpdateCropDto } from './dto/update-crop.dto';
 //
 @Controller('crops')

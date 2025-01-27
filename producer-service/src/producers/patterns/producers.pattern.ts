@@ -4,4 +4,5 @@ export enum ProducersPattern {
   FIND_ONE = 'producer-service.findOne',
   UPDATE = 'producer-service.update',
   REMOVE = 'producer-service.remove',
+  EXISTS = 'producer-service.exists',
 }

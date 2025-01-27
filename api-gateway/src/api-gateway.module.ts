@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ProducersModule } from './producers/producers.module';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
 import { CommoditiesModule } from './commodities/commodities.module';
+import { AppAllExceptionsFilter } from './commons/filters/app-all-exceptions.filter';
 import { LocationsModule } from './locations/locations.module';
+import { ProducersModule } from './producers/producers.module';
 import { PropertiesModule } from './properties/properties.module';
 
 @Module({
@@ -18,6 +20,11 @@ import { PropertiesModule } from './properties/properties.module';
     PropertiesModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppAllExceptionsFilter,
+    },
+  ],
 })
 export class ApiGatewayModule {}

@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppErrorFilter } from './properties/filters/app-error.filter';
 import { PropertiesModule } from './properties/properties.module';
+import { AppHttpExceptionFilter } from './properties/filters/app-http-exception.filter';
 
 @Module({
   imports: [
@@ -37,6 +40,15 @@ import { PropertiesModule } from './properties/properties.module';
     PropertiesModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppErrorFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AppHttpExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

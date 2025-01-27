@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
-import { Location } from './entities/location.entity';
+import { CreateLocationDto } from '../dtos/create-location.dto';
+import { UpdateLocationDto } from '../dtos/update-location.dto';
+import { Location } from '../entities/location.entity';
 
 @Injectable()
 export class LocationsService {
@@ -35,13 +35,13 @@ export class LocationsService {
   async update(id: number, updateLocationDto: UpdateLocationDto) {
     console.log('updateLocationDto', updateLocationDto);
     const product = await this.repository.findOneBy({ id });
-    console.log('product', product)
+    console.log('product', product);
     if (product) {
       const { city, state } = updateLocationDto;
       product.state = state ? state : product.state;
       product.city = city ? city : product.city;
 
-      const updateProduct = this.repository.create(product)
+      const updateProduct = this.repository.create(product);
 
       const dbResult = await this.repository.save(updateProduct);
       return dbResult;
@@ -54,5 +54,13 @@ export class LocationsService {
       const dbResult = await this.repository.remove([location]);
       return dbResult;
     }
+  }
+
+  async exists(id: number) {
+    const dbResult = await this.repository.findOne({
+      where: { id },
+      select: { id: true },
+    });
+    return !!dbResult;
   }
 }

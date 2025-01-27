@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCropDto } from './dto/create-crop.dto';
 // import { UpdateCropDto } from './dto/update-crop.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Crop } from './entities/crop.entity';
+import { CreateCropDto } from '../dtos/create-crop.dto';
+import { Crop } from '../entities/crop.entity';
 
 @Injectable()
 export class CropsService {

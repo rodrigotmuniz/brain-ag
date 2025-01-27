@@ -4,15 +4,18 @@ import {
   Delete,
   Get,
   Inject,
+  InternalServerErrorException,
   Param,
   ParseIntPipe,
   Patch,
   Post,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreatePropertyDto } from './dto/create-property.dto';
-import { UpdatePropertyDto } from './dto/update-property.dto';
+import { CreatePropertyDto } from './dtos/create-property.dto';
+import { UpdatePropertyDto } from './dtos/update-property.dto';
 import { PropertiesPattern } from './properties.pattern';
+import { lastValueFrom } from 'rxjs';
 
 @Controller('properties')
 export class PropertiesController {
@@ -22,7 +25,7 @@ export class PropertiesController {
   ) {}
 
   @Post()
-  create(@Body() createPropertyDto: CreatePropertyDto) {
+  async create(@Body() createPropertyDto: CreatePropertyDto) {
     return this.clientProxy.send(PropertiesPattern.CREATE, createPropertyDto);
   }
 

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BadRequestException } from '@nestjs/common';
+import { BeforeInsert, BeforeRecover, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('properties')
 export class Property {
@@ -22,4 +23,16 @@ export class Property {
 
   @Column()
   locationId: number;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  validateAreas() {
+    console.log('validateAreas')
+    const sumOfAreas = this.agriculturalArea + this.vegetationArea;
+    if (this.totalArea < sumOfAreas) {
+      throw new BadRequestException(
+        `Total area (${this.totalArea}) must be greater than or equal to the sum of agricultural area (${this.agriculturalArea}) and vegetation area (${this.vegetationArea}).`,
+      );
+    }
+  }
 }

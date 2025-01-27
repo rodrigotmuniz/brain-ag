@@ -1,9 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { PropertiesService } from './properties.service';
-import { CreatePropertyDto } from './dto/create-property.dto';
-import { UpdatePropertyDto } from './dto/update-property.dto';
-import { PropertyPattern } from './properties.pattern';
+import { CreatePropertyDto } from './dtos/create-property.dto';
+import { PropertyPattern } from './patterns/properties.pattern';
+import { PropertiesService } from './services/properties.service';
 
 @Controller()
 export class PropertiesController {
@@ -26,12 +25,17 @@ export class PropertiesController {
 
   @MessagePattern(PropertyPattern.UPDATE)
   update(@Payload() { id, ...data }: { id: number }) {
-    console.log(data)
+    console.log(data);
     return this.propertiesService.update(id, data);
   }
 
   @MessagePattern(PropertyPattern.REMOVE)
   remove(@Payload() id: number) {
     return this.propertiesService.remove(id);
+  }
+
+  @MessagePattern(PropertyPattern.EXISTS)
+  exists(@Payload() id: number) {
+    return this.propertiesService.exists(id);
   }
 }

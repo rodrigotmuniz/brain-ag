@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CommodityPattern } from './commodities.pattern';
+import { CommodityPattern } from './patterns/commodities.pattern';
 import { CommoditiesService } from './commodities.service';
-import { CreateCommodityDto } from './dto/create-commodity.dto';
-import { UpdateCommodityDto } from './dto/update-commodity.dto';
+import { CreateCommodityDto } from './dtos/create-commodity.dto';
+import { UpdateCommodityDto } from './dtos/update-commodity.dto';
 
 @Controller()
 export class CommoditiesController {

@@ -4,4 +4,5 @@ export enum PropertyPattern {
   FIND_ONE = 'property-service.findOne',
   UPDATE = 'property-service.update',
   REMOVE = 'property-service.remove',
+  EXISTS = 'property-service.exists',
 }

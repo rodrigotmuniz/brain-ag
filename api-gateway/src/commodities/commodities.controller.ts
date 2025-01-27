@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CommoditiesPattern } from './commodities.pattern';
-import { CreateCommodityDto } from './dto/create-commodity.dto';
-import { UpdateCommodityDto } from './dto/update-commodity.dto';
+import { CreateCommodityDto } from './dtos/create-commodity.dto';
+import { UpdateCommodityDto } from './dtos/update-commodity.dto';
 
 @Controller('commodities')
 export class CommoditiesController {

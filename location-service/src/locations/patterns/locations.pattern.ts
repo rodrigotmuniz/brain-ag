@@ -4,4 +4,5 @@ export enum LocationsPattern {
   FIND_ONE = 'location-service.findOne',
   UPDATE = 'location-service.update',
   REMOVE = 'location-service.remove',
+  EXISTS = 'location-service.exists',
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateProducerDto } from './dto/create-producer.dto';
-import { UpdateProducerDto } from './dto/update-producer.dto';
-import { Producer } from './entities/producer.entity';
+import { CreateProducerDto } from '../dtos/create-producer.dto';
+import { UpdateProducerDto } from '../dtos/update-producer.dto';
+import { Producer } from '../entities/producer.entity';
 
 @Injectable()
 export class ProducersService {
@@ -27,6 +27,14 @@ export class ProducersService {
     console.log('sdfasdfasçdlfajçsdlkfçalskdfçlajç', typeof id);
     const dbResult = await this.repository.findOneBy({ id });
     return dbResult;
+  }
+
+  async exists(id: number) {
+    const dbResult = await this.repository.findOne({
+      where: { id },
+      select: { id: true },
+    });
+    return !!dbResult;
   }
 
   async update(updateProducerDto: UpdateProducerDto) {

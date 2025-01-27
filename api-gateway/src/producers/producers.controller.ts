@@ -9,10 +9,10 @@ import {
   Delete,
   ParseIntPipe,
 } from '@nestjs/common';
-import { CreateProducerDto } from './dto/create-producer.dto';
+import { CreateProducerDto } from './dtos/create-producer.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { ProducersPattern } from './producers.pattern';
-import { UpdateProducerDto } from './dto/update-producer.dto';
+import { UpdateProducerDto } from './dtos/update-producer.dto';
 
 @Controller('producers')
 export class ProducersController {

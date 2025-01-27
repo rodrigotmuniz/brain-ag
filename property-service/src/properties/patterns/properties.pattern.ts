@@ -1,4 +1,4 @@
-export enum PropertiesPattern {
+export enum PropertyPattern {
   CREATE = 'property-service.create',
   FIND_ALL = 'property-service.findAll',
   FIND_ONE = 'property-service.findOne',

@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
-import { ProducersService } from './producers.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CreateProducerDto } from './dto/create-producer.dto';
-import { UpdateProducerDto } from './dto/update-producer.dto';
-import { ProducersPattern } from './producers.pattern';
+import { CreateProducerDto } from './dtos/create-producer.dto';
+import { UpdateProducerDto } from './dtos/update-producer.dto';
+import { ProducersPattern } from './patterns/producers.pattern';
+import { ProducersService } from './services/producers.service';
 
 @Controller()
 export class ProducersController {
@@ -32,5 +32,10 @@ export class ProducersController {
   @MessagePattern(ProducersPattern.REMOVE)
   remove(@Payload() id: number) {
     return this.producersService.remove(id);
+  }
+
+  @MessagePattern(ProducersPattern.EXISTS)
+  exists(@Payload() id: number) {
+    return this.producersService.exists(id);
   }
 }

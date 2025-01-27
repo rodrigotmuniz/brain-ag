@@ -1,9 +1,8 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
-import { LocationsPattern } from './locations.pattern';
-import { LocationsService } from './locations.service';
+import { CreateLocationDto } from './dtos/create-location.dto';
+import { LocationsPattern } from './patterns/locations.pattern';
+import { LocationsService } from './services/locations.service';
 
 @Controller()
 export class LocationsController {
@@ -32,5 +31,10 @@ export class LocationsController {
   @MessagePattern(LocationsPattern.REMOVE)
   remove(@Payload() id: number) {
     return this.locationsService.remove(id);
+  }
+
+  @MessagePattern(LocationsPattern.EXISTS)
+  exists(@Payload() id: number) {
+    return this.locationsService.exists(id);
   }
 }

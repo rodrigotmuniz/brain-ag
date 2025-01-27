@@ -10,8 +10,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
+import { CreateLocationDto } from './dtos/create-location.dto';
+import { UpdateLocationDto } from './dtos/update-location.dto';
 import { LocationsPattern } from './locations.pattern';
 
 @Controller('locations')
