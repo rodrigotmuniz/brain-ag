@@ -9,7 +9,7 @@ async function bootstrap() {
     AppModule,
     {
       transport: Transport.TCP,
-      options: { host: '0.0.0.0', port: Number(process.env.PORT || 3003) },
+      options: { host: '0.0.0.0', port: Number(process.env.PORT || 3006) },
     },
   );
 

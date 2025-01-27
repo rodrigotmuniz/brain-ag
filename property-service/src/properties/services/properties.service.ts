@@ -37,7 +37,7 @@ export class PropertiesService {
   }
 
   async update(updatePropertyDto: UpdatePropertyDto) {
-    const {id, ...payload} = updatePropertyDto
+    const { id, ...payload } = updatePropertyDto
     const foundProperty = await this.findByIdOrFail(id)
 
     const updateProperty = this.repository.create({
@@ -63,11 +63,8 @@ export class PropertiesService {
     return !!foundProperty
   }
 
-  private async existsOrFail(id: number) {
-    const exists = await this.exists(id)
-    if (!exists) {
-      throw new NotFoundException(`Property not found. No property exists with the provided ID: ${id}.`)
-    }
-    return exists
+  async findPropertiesAmount() {
+    const propertiesAmount = await this.repository.count()
+    return { propertiesAmount }
   }
 }

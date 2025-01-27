@@ -7,6 +7,7 @@ import { LocationsModule } from './locations/locations.module'
 import { ProducersModule } from './producers/producers.module'
 import { PropertiesModule } from './properties/properties.module'
 import { CropsModule } from './crops/crops.module'
+import { DashboardsModule } from './dashboards/dashboards.module'
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CropsModule } from './crops/crops.module'
     LocationsModule,
     PropertiesModule,
     CropsModule,
+    DashboardsModule,
   ],
   controllers: [],
   providers: [

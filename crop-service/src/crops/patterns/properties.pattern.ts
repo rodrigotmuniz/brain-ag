@@ -5,4 +5,5 @@ export enum PropertiesPattern {
   UPDATE = 'property-service.update',
   REMOVE = 'property-service.remove',
   EXISTS = 'property-service.exists',
+  FIND_PROPERTIES_AMOUNT = 'property-service.findPropertiesAmount',
 }
