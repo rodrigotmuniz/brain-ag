@@ -6,7 +6,7 @@ import { CropsController } from './crops.controller'
   imports: [
     ClientsModule.register([
       {
-        name: process.env.CROPS_SERVICE_CLIENT || 'CROPS_SERVICE_CLIENT',
+        name: process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT',
         transport: Transport.TCP, // TCP communication
         options: {
           host: process.env.CROPS_HOST ?? 'localhost',

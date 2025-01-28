@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config'
 import { Module } from '@nestjs/common'
 import { DashboardsModule } from './dashboards/dashboards.module'
 import { APP_FILTER } from '@nestjs/core'
+import { AppAllExceptionsFilter } from './dashboards/filters/app-all-exceptions.filter'
 
 @Module({
   imports: [
@@ -15,6 +16,10 @@ import { APP_FILTER } from '@nestjs/core'
   ],
   controllers: [],
   providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AppAllExceptionsFilter,
+    },
     {
       provide: APP_FILTER,
       useClass: AppErrorFilter,

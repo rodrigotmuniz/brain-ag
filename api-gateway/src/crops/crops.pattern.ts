@@ -5,4 +5,5 @@ export enum CropsPattern {
   UPDATE = 'crop-service.update',
   REMOVE = 'crop-service.remove',
   EXISTS = 'crop-service.exists',
+  FIND_GROUPED_CROPS = 'crop-service.findGroupedCrops',
 }

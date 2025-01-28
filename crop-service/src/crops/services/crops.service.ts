@@ -4,8 +4,6 @@ import { FindOptionsSelect, Repository } from 'typeorm'
 import { CreateCropDto } from '../dtos/create-crop.dto'
 import { UpdateCropDto } from '../dtos/update-crop.dto'
 import { Crop } from '../entities/crop.entity'
-import { CommoditiesService } from './commodities.service'
-import { PropertiesService } from './properties.service'
 
 @Injectable()
 export class CropsService {
@@ -64,11 +62,25 @@ export class CropsService {
     return !!foundCrop
   }
 
-  private async existsOrFail(id: number) {
-    const exists = await this.exists(id)
-    if (!exists) {
-      throw new NotFoundException(`Crop not found. No crop exists with the provided ID: ${id}.`)
-    }
-    return exists
+  async findGrouped(year: number) {
+    const groupedCrops = await this.repository
+      .createQueryBuilder('crops')
+      .select('crops.commodityId', 'commodityId')
+      .addSelect('COUNT(crops.id)', 'count')
+      .groupBy('crops.commodityId')
+      .orderBy('count', 'DESC')
+      .where('crops.year = :year', { year })
+      .getRawMany()
+    return { groupedCrops }
   }
+
+  // async groupByCommodity(): Promise<{ commodityId: number; count: number }[]> {
+  //   return this.cropRepository
+  //     .createQueryBuilder('crop')
+  //     .select('crop.commodityId', 'commodityId') // Select the commodityId
+  //     .addSelect('COUNT(crop.id)', 'count') // Count the number of crops for each commodity
+  //     .groupBy('crop.commodityId') // Group by commodityId
+  //     .orderBy('count', 'DESC') // Optional: order by count in descending order
+  //     .getRawMany(); // Execute and return raw results
+  // }
 }

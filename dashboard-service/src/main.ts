@@ -20,7 +20,7 @@ async function bootstrap() {
       transform: false, // tenta transformar os tipos de dados de param e dtos
     }),
   )
-  useContainer(app.select(AppModule), { fallbackOnErrors: true });
+  // useContainer(app.select(AppModule), { fallbackOnErrors: true });
   await app.listen();
 }
 

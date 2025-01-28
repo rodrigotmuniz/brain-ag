@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common'
-import { MessagePattern } from '@nestjs/microservices'
+import { MessagePattern, Payload } from '@nestjs/microservices'
 import { DashboardsPattern } from './patterns/dashboards.pattern'
 import { DashboardsService } from './services/dashboards.service'
 
@@ -25,6 +25,12 @@ export class DashboardsController {
   @MessagePattern(DashboardsPattern.FIND_GROUPED_STATES)
   findGroupedStates() {
     return this.dashboardsService.findGroupedStates()
+  }
+
+  @MessagePattern(DashboardsPattern.FIND_GROUPED_CROPS)
+  findGroupedCrops(@Payload() year: number) {
+    console.log('year', year)
+    return this.dashboardsService.findGroupedCrops(year)
   }
 
   // @MessagePattern(DashboardPattern.FIND_ONE)

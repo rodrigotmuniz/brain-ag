@@ -1,13 +1,13 @@
 import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
+import { CropsPattern } from './crops.pattern'
 import { CreateCropDto } from './dtos/create-crop.dto'
 import { UpdateCropDto } from './dtos/update-crop.dto'
-import { CropsPattern } from './crops.pattern'
 
 @Controller('crops')
 export class CropsController {
   constructor(
-    @Inject(process.env.CROPS_SERVICE_CLIENT || 'CROPS_SERVICE_CLIENT')
+    @Inject(process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT')
     private readonly clientProxy: ClientProxy,
   ) {
     // console.log('crops - clientProxy', clientProxy)

@@ -26,9 +26,9 @@ export class DashboardsController {
     return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_STATES, {})
   }
 
-  @Get('find-grouped-crops')
-  findGroupedCrops() {
-    return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_CROPS, {})
+  @Get('find-grouped-crops/:year')
+  findGroupedCrops(@Param('year', ParseIntPipe) year: number) {
+    return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_CROPS, { year })
   }
 
   @Get('find-groupedLandUsed')

@@ -2,12 +2,14 @@ import { Inject, Injectable } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
 import { PropertiesService } from './properties.service'
 import { LocationsService } from './locations.service'
+import { CropsService } from './crops.service'
 
 @Injectable()
 export class DashboardsService {
   constructor(
     private readonly propertiesService: PropertiesService,
     private readonly locationsService: LocationsService,
+    private readonly cropsService: CropsService,
   ) {}
 
   // async create(createDashboardDto: CreateDashboardDto) {
@@ -29,6 +31,11 @@ export class DashboardsService {
   async findGroupedStates() {
     const totalAreaSum = await this.locationsService.findGroupedStates()
     return totalAreaSum
+  }
+
+  async findGroupedCrops(year: number) {
+    const groupedCrops = await this.cropsService.findGrouped(year)
+    return groupedCrops
   }
 
   // async findOne(id: number) {
