@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { FindOptionsSelect, Repository } from 'typeorm';
-import { CreateCommodityDto } from '../dtos/create-commodity.dto';
-import { UpdateCommodityDto } from '../dtos/update-commodity.dto';
-import { Commodity } from '../entities/commodity.entity';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { FindOptionsSelect, In, Repository } from 'typeorm'
+import { CreateCommodityDto } from '../dtos/create-commodity.dto'
+import { UpdateCommodityDto } from '../dtos/update-commodity.dto'
+import { Commodity } from '../entities/commodity.entity'
 
 @Injectable()
 export class CommoditiesService {
@@ -13,19 +13,19 @@ export class CommoditiesService {
   ) {}
 
   async create(createCommodityDto: CreateCommodityDto) {
-    const newCommodity = this.repository.create(createCommodityDto);
-    const savedCommodity = await this.repository.save(newCommodity);
-    return savedCommodity;
+    const newCommodity = this.repository.create(createCommodityDto)
+    const savedCommodity = await this.repository.save(newCommodity)
+    return savedCommodity
   }
 
   async findAll() {
-    const foundCommodity = await this.repository.find();
-    return foundCommodity;
+    const foundCommodity = await this.repository.find()
+    return foundCommodity
   }
 
   async findOne(id: number) {
-    const foundCommodity = await this.repository.findOneBy({ id });
-    return foundCommodity;
+    const foundCommodity = await this.repository.findOneBy({ id })
+    return foundCommodity
   }
 
   async findByIdOrFail(id: number, select?: FindOptionsSelect<Commodity>) {
@@ -37,7 +37,7 @@ export class CommoditiesService {
   }
 
   async update(updateCommodityDto: UpdateCommodityDto) {
-    const {id, ...payload} = updateCommodityDto
+    const { id, ...payload } = updateCommodityDto
     const foundCommodity = await this.findByIdOrFail(id)
 
     const updateCommodity = this.repository.create({
@@ -50,10 +50,10 @@ export class CommoditiesService {
   }
 
   async remove(id: number) {
-    const foundCommodity = await this.repository.findOneBy({ id });
+    const foundCommodity = await this.repository.findOneBy({ id })
     if (foundCommodity) {
-      const removedCommodity = await this.repository.remove([foundCommodity]);
-      return removedCommodity;
+      const removedCommodity = await this.repository.remove([foundCommodity])
+      return removedCommodity
     }
   }
 
@@ -63,5 +63,12 @@ export class CommoditiesService {
       select: { id: true },
     })
     return !!foundCommodity
+  }
+
+  async findBatchByIds(ids: [number]) {
+    const foundCommodities = await this.repository.find({
+      where: { id: In(ids) },
+    })
+    return foundCommodities
   }
 }

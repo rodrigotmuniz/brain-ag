@@ -38,4 +38,9 @@ export class CommoditiesController {
   exists(@Payload() id: number) {
     return this.commoditiesService.exists(id)
   }
+
+  @MessagePattern(CommoditiesPattern.FIND_BATCH_BY_IDS)
+  findBatchByIds(@Payload() ids: [number]) {
+    return this.commoditiesService.findBatchByIds(ids)
+  }
 }

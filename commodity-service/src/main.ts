@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { MicroserviceOptions, Transport } from '@nestjs/microservices'
 import { ValidationPipe } from '@nestjs/common'
+import { ResponseInterceptor } from './commodities/interceptors/response.interceptor'
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
@@ -10,11 +11,14 @@ async function bootstrap() {
   })
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // remove chaves que não estão no DTO
-      forbidNonWhitelisted: true, // levantar erro quando a chave não existir
-      transform: false, // tenta transformar os tipos de dados de param e dtos
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: false,
     }),
   )
+
+  app.useGlobalInterceptors(new ResponseInterceptor())
+
   await app.listen()
 }
 

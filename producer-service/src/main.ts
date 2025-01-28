@@ -1,24 +1,24 @@
-import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common'
+import { NestFactory } from '@nestjs/core'
+import { MicroserviceOptions, Transport } from '@nestjs/microservices'
+import { AppModule } from './app.module'
+import { ResponseInterceptor } from './producers/interceptors/response.interceptor'
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    AppModule,
-    {
-      transport: Transport.TCP,
-      options: { host: '0.0.0.0', port: Number(process.env.PORT || 3005) },
-    },
-  );
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+    transport: Transport.TCP,
+    options: { host: '0.0.0.0', port: Number(process.env.PORT || 3005) },
+  })
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // remove chaves que não estão no DTO
-      forbidNonWhitelisted: true, // levantar erro quando a chave não existir
-      transform: false, // tenta transformar os tipos de dados de param e dtos
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: false,
     }),
   )
-  await app.listen();
+  app.useGlobalInterceptors(new ResponseInterceptor())
+
+  await app.listen()
 }
 
-void bootstrap();
+void bootstrap()

@@ -4,12 +4,14 @@ import { FindOptionsSelect, Repository } from 'typeorm'
 import { CreateCropDto } from '../dtos/create-crop.dto'
 import { UpdateCropDto } from '../dtos/update-crop.dto'
 import { Crop } from '../entities/crop.entity'
+import { CommoditiesService } from './commodities.service'
 
 @Injectable()
 export class CropsService {
   constructor(
     @InjectRepository(Crop)
     private readonly repository: Repository<Crop>,
+    private readonly commoditiesService: CommoditiesService,
   ) {}
 
   async create(createCropDto: CreateCropDto) {
@@ -70,17 +72,17 @@ export class CropsService {
       .groupBy('crops.commodityId')
       .orderBy('count', 'DESC')
       .where('crops.year = :year', { year })
-      .getRawMany()
-    return { groupedCrops }
-  }
+      .getRawMany<{ commodityId: number; count: number }>()
 
-  // async groupByCommodity(): Promise<{ commodityId: number; count: number }[]> {
-  //   return this.cropRepository
-  //     .createQueryBuilder('crop')
-  //     .select('crop.commodityId', 'commodityId') // Select the commodityId
-  //     .addSelect('COUNT(crop.id)', 'count') // Count the number of crops for each commodity
-  //     .groupBy('crop.commodityId') // Group by commodityId
-  //     .orderBy('count', 'DESC') // Optional: order by count in descending order
-  //     .getRawMany(); // Execute and return raw results
-  // }
+    const commodityIds = groupedCrops.map((groupedCrop) => groupedCrop.commodityId)
+    const commodities = await this.commoditiesService.findBatchByIds(commodityIds)
+    console.log('commodities', commodities)
+
+    const groupedCropsWithCommodity = groupedCrops.map((groupedCrop) => ({
+      commodity: commodities.find((commodity) => commodity.id === groupedCrop.commodityId),
+      count: groupedCrop.count,
+    }))
+
+    return groupedCropsWithCommodity
+  }
 }
