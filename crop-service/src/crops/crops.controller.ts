@@ -43,7 +43,16 @@ export class CropsController {
 
   @MessagePattern(CropsPattern.FIND_GROUPED_CROPS)
   findGrouped(@Payload() findGroupedCropsDto: FindGroupedCropsDto) {
-    console.log(findGroupedCropsDto)
     return this.cropsService.findGrouped(findGroupedCropsDto.year)
+  }
+
+  @MessagePattern(CropsPattern.COMMODITY_EXISTS)
+  commodityExists(@Payload() commodityId: number) {
+    return this.cropsService.commodityExists(commodityId)
+  }
+
+  @MessagePattern(CropsPattern.PROPERTY_EXISTS)
+  propertyExists(@Payload() propertyExists: number) {
+    return this.cropsService.propertyExists(propertyExists)
   }
 }

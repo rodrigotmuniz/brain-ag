@@ -85,4 +85,20 @@ export class CropsService {
 
     return groupedCropsWithCommodity
   }
+
+  async commodityExists(commodityId: number) {
+    const foundCommodity = await this.repository.findOne({
+      where: { commodityId },
+      select: { id: true },
+    })
+    return !!foundCommodity
+  }
+
+  async propertyExists(propertyId: number) {
+    const foundProperty = await this.repository.findOne({
+      where: { propertyId },
+      select: { id: true },
+    })
+    return !!foundProperty
+  }
 }

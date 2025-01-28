@@ -4,12 +4,15 @@ import { FindOptionsSelect, In, Repository } from 'typeorm'
 import { CreateCommodityDto } from '../dtos/create-commodity.dto'
 import { UpdateCommodityDto } from '../dtos/update-commodity.dto'
 import { Commodity } from '../entities/commodity.entity'
+import { CropsService } from './crops.service'
 
 @Injectable()
 export class CommoditiesService {
   constructor(
     @InjectRepository(Commodity)
     private readonly repository: Repository<Commodity>,
+    // private readonly propertiesService: PropertiesService,
+    private readonly cropsService: CropsService,
   ) {}
 
   async create(createCommodityDto: CreateCommodityDto) {
@@ -50,7 +53,9 @@ export class CommoditiesService {
   }
 
   async remove(id: number) {
-    const foundCommodity = await this.repository.findOneBy({ id })
+    const foundCommodity = await this.findByIdOrFail(id)
+    await this.cropsService.commodityExistsOrFail(id)
+
     if (foundCommodity) {
       const removedCommodity = await this.repository.remove([foundCommodity])
       return removedCommodity
