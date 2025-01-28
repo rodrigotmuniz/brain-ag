@@ -38,6 +38,11 @@ export class DashboardsService {
     return groupedCrops
   }
 
+  async findLandUsed() {
+    const landUsed = await this.propertiesService.findLandUsed()
+    return landUsed
+  }
+
   // async findOne(id: number) {
   //   const foundDashboard = await this.repository.findOneBy({ id })
   //   return foundDashboard

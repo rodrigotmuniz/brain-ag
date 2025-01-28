@@ -1,8 +1,6 @@
-import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
+import { Controller, Get, Inject, Param, ParseIntPipe } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
 import { DashboardsPattern } from './dashboards.pattern'
-import { CreateDashboardDto } from './dtos/create-dashboard.dto'
-import { UpdateDashboardDto } from './dtos/update-dashboard.dto'
 
 @Controller('dashboards')
 export class DashboardsController {
@@ -31,8 +29,8 @@ export class DashboardsController {
     return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_CROPS, { year })
   }
 
-  @Get('find-groupedLandUsed')
-  findGroupedLandUsed() {
-    return this.clientProxy.send(DashboardsPattern.FIND_GROUPED_LAND_USED, {})
+  @Get('find-land-used')
+  findLandUsed() {
+    return this.clientProxy.send(DashboardsPattern.FIND_LAND_USED, {})
   }
 }

@@ -24,7 +24,6 @@ export class ProducersService {
   }
 
   async findOne(id: number) {
-    console.log('sdfasdfasçdlfajçsdlkfçalskdfçlajç', typeof id);
     const dbResult = await this.repository.findOneBy({ id });
     return dbResult;
   }

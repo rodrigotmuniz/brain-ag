@@ -72,4 +72,13 @@ export class PropertiesService {
     const totalAreaSum = await this.repository.sum('totalArea')
     return { totalAreaSum }
   }
+
+  async findLandUsed() {
+    const landUsed = await this.repository
+      .createQueryBuilder('properties')
+      .select('SUM(properties.agriculturalArea)', 'agriculturalAreaSum')
+      .addSelect('SUM(properties.vegetationArea)', 'vegetationAreaSum')
+      .getRawMany()
+    return { landUsed }
+  }
 }

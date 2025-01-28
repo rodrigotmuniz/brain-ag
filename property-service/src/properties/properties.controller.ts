@@ -48,4 +48,9 @@ export class PropertiesController {
   findTotalArea() {
     return this.propertiesService.findTotalArea()
   }
+
+  @MessagePattern(PropertiesPattern.FIND_LAND_USED)
+  findLandUsed() {
+    return this.propertiesService.findLandUsed()
+  }
 }

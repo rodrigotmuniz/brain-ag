@@ -21,4 +21,10 @@ export class PropertiesService {
     const propertiesAmount = await lastValueFrom(observable)
     return propertiesAmount
   }
+
+  async findLandUsed() {
+    const observable = this.clientProxy.send(PropertiesPattern.FIND_LAND_USED, {})
+    const landUsed = await lastValueFrom(observable)
+    return landUsed
+  }
 }
