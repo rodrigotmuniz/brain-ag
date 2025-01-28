@@ -38,7 +38,8 @@ export class CropsService {
     return foundCrop
   }
 
-  async update(id: number, data: UpdateCropDto) {
+  async update(updateCropDto: UpdateCropDto) {
+    const {id, ...data} = updateCropDto
     const foundCrop = await this.findByIdOrFail(id)
 
     const updateCrop = this.repository.create({

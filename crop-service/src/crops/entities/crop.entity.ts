@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, Unique } from 'typeorm'
 import { IsInt, Min, Max, IsPositive } from 'class-validator'
 
 @Entity('crops')
+@Unique(['year', 'commodityId', 'propertyId'])
 export class Crop {
   @PrimaryGeneratedColumn()
   id: number

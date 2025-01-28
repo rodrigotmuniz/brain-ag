@@ -7,7 +7,8 @@ export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       map((response) => {
-        if (!response) return {}
+        console.log(555,context.getClass(), response)
+        if (response == null) return {}
         return  response.data ? response : { data: response  }
       }),
     )

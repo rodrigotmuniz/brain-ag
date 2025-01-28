@@ -12,8 +12,8 @@ export class PropertiesService {
 
   async exists(id: number) {
     const observable = this.clientProxy.send(PropertiesPattern.EXISTS, id)
-    const exists = await firstValueFrom<boolean>(observable)
-    return exists
+    const { data } = await firstValueFrom<{ data: boolean }>(observable)
+    return data
   }
   async existsOrFail(id: number) {
     const exists = await this.exists(id)

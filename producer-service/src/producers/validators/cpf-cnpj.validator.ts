@@ -6,8 +6,8 @@ import { cpf, cnpj } from 'cpf-cnpj-validator';
 @Injectable()
 export class CpfCnpjValidator implements ValidatorConstraintInterface {
   validate(value: string, args: ValidationArguments): boolean {
-    if (!value) return false;
     console.log(value, typeof value)
+    if (!value || typeof value !== 'string') return false;
     return cpf.isValid(value) || cnpj.isValid(value);
   }
 

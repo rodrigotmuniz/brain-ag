@@ -7,6 +7,7 @@ import { PropertiesModule } from './properties/properties.module';
 import { AppHttpExceptionFilter } from './properties/filters/app-http-exception.filter';
 import { LocationExistsValidator } from './properties/validators/location-exists.validator';
 import { AppQueryFailedErrorFilter } from './properties/filters/app-query-failed-error.filter';
+import { AppAllExceptionsFilter } from './properties/filters/app-all-exceptions.filter';
 
 @Module({
   imports: [
@@ -29,18 +30,10 @@ import { AppQueryFailedErrorFilter } from './properties/filters/app-query-failed
   ],
   controllers: [],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: AppErrorFilter,
-    },
-    {
-      provide: APP_FILTER,
-      useClass: AppHttpExceptionFilter,
-    },
-    {
-      provide: APP_FILTER,
-      useClass: AppQueryFailedErrorFilter,
-    },
-  ],
+    { provide: APP_FILTER, useClass: AppAllExceptionsFilter },
+    { provide: APP_FILTER, useClass: AppErrorFilter },
+    { provide: APP_FILTER, useClass: AppHttpExceptionFilter },
+    { provide: APP_FILTER, useClass: AppQueryFailedErrorFilter },
+  ]
 })
 export class AppModule {}

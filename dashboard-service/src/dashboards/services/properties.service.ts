@@ -12,19 +12,19 @@ export class PropertiesService {
 
   async findPropertiesAmount() {
     const observable = this.clientProxy.send(PropertiesPattern.FIND_PROPERTIES_AMOUNT, {})
-    const propertiesAmount = await firstValueFrom(observable)
+    const { data: propertiesAmount } = await firstValueFrom(observable)
     return propertiesAmount
   }
 
   async findTotalArea() {
     const observable = this.clientProxy.send(PropertiesPattern.FIND_TOTAL_AREA, {})
-    const propertiesAmount = await firstValueFrom(observable)
+    const { data: propertiesAmount } = await firstValueFrom(observable)
     return propertiesAmount
   }
 
   async findLandUsed() {
     const observable = this.clientProxy.send(PropertiesPattern.FIND_LAND_USED, {})
-    const landUsed = await firstValueFrom(observable)
+    const { data: landUsed } = await firstValueFrom(observable)
     return landUsed
   }
 }

@@ -24,11 +24,6 @@ import { DashboardsModule } from './dashboards/dashboards.module'
     DashboardsModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: AppAllExceptionsFilter,
-    },
-  ],
+  providers: [{ provide: APP_FILTER, useClass: AppAllExceptionsFilter }],
 })
 export class ApiGatewayModule {}

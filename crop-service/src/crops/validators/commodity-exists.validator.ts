@@ -9,6 +9,7 @@ export class CommodityExistsValidator implements ValidatorConstraintInterface {
 
   async validate(commodityId: number): Promise<boolean> {
     const exists = await this.commoditiesService.exists(commodityId)
+    console.log('========', exists)
     return exists
   }
 

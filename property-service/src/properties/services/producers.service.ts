@@ -21,7 +21,7 @@ export class ProducersService {
 
   async existsOrFail(id: number) {
     const observable = this.producerClientProxy.send(ProducersPattern.EXISTS, id)
-    const exists = await firstValueFrom(observable)
+    const { data: exists } = await firstValueFrom(observable)
     if (!exists) {
       throw new NotFoundException(`Producer not found. No producer exists with the provided ID: ${id}.`)
     }
@@ -30,7 +30,7 @@ export class ProducersService {
 
   async exists(id: number) {
     const observable = this.producerClientProxy.send(ProducersPattern.EXISTS, id)
-    const exists = await firstValueFrom<boolean>(observable)
+    const { data: exists } = await firstValueFrom<{ data: boolean }>(observable)
     return exists
   }
 }

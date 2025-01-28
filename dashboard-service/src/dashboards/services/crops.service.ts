@@ -12,7 +12,7 @@ export class CropsService {
 
   async findGrouped(year: number) {
     const observable = this.clientProxy.send(CropsPattern.FIND_GROUPED_CROPS, year)
-    const groupedCrops = await firstValueFrom(observable)
+    const { data: groupedCrops } = await firstValueFrom(observable)
     return groupedCrops
   }
 }

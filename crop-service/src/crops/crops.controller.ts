@@ -4,6 +4,7 @@ import { CreateCropDto } from './dtos/create-crop.dto'
 import { CropsPattern } from './patterns/crops.pattern'
 import { CropsService } from './services/crops.service'
 import { FindGroupedCropsDto } from './dtos/find-grouped-crops.dto'
+import { UpdateCropDto } from './dtos/update-crop.dto'
 
 @Controller()
 export class CropsController {
@@ -26,9 +27,9 @@ export class CropsController {
   }
 
   @MessagePattern(CropsPattern.UPDATE)
-  update(@Payload() { id, ...data }: { id: number }) {
-    console.log(data)
-    return this.cropsService.update(id, data)
+  update(@Payload() updateCropDto: UpdateCropDto) {
+    console.log('update(@Payload()', updateCropDto)
+    return this.cropsService.update(updateCropDto)
   }
 
   @MessagePattern(CropsPattern.REMOVE)

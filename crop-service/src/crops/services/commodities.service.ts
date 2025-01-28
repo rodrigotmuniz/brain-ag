@@ -12,7 +12,7 @@ export class CommoditiesService {
 
   async findByIdOrFail(id: number) {
     const observable = this.clientProxy.send(CommoditiesPattern.FIND_ONE, id)
-    const commodity = await firstValueFrom(observable)
+    const { data: commodity } = await firstValueFrom(observable)
     if (!commodity) {
       throw new NotFoundException(`Commodity not found. No commodity exists with the provided ID: ${id}.`)
     }
@@ -21,8 +21,9 @@ export class CommoditiesService {
 
   async exists(id: number) {
     const observable = this.clientProxy.send(CommoditiesPattern.EXISTS, id)
-    const exists = await firstValueFrom(observable)
-    return exists
+    const { data } = await firstValueFrom(observable)
+    console.log('data', data)
+    return data
   }
 
   async existsOrFail(id: number) {

@@ -13,6 +13,7 @@ export class PropertiesService {
   async producerExistsOrFail(producerId: number) {
     const observable = this.clientProxy.send(PropertiesPattern.PRODUCER_EXISTS, producerId)
     const { data } = await firstValueFrom<{ data: boolean }>(observable)
+    console.log('producerExistsOrFail', data)
     if (data) {
       throw new ConflictException(`The Producer with id ${producerId} cannot be deleted because it is referenced in the Property table.`)
     }

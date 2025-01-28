@@ -12,7 +12,7 @@ export class LocationsService {
 
   async existsOrFail(id: number) {
     const observable = this.clientProxy.send(LocationsPattern.EXISTS, id)
-    const exists = await firstValueFrom<boolean>(observable)
+    const { data: exists } = await firstValueFrom<{data: boolean}>(observable)
     if (!exists) {
       throw new NotFoundException(`Location not found. No location exists with the provided ID: ${id}.`)
     }
@@ -21,7 +21,7 @@ export class LocationsService {
 
   async exists(id: number) {
     const observable = this.clientProxy.send(LocationsPattern.EXISTS, id)
-    const exists = await firstValueFrom<boolean>(observable)
+    const { data: exists } = await firstValueFrom<{data: boolean}>(observable)
     return exists
   }
 }

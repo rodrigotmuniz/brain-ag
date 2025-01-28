@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
-import { CropsModule } from './crops/crops.module';
-import { APP_FILTER } from '@nestjs/core';
-import { AppErrorFilter } from './crops/filters/app-error.filter';
-import { AppHttpExceptionFilter } from './crops/filters/app-http-exception.filter';
-import { AppQueryFailedErrorFilter } from './crops/filters/app-query-failed-error.filter';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule } from '@nestjs/config'
+import { CropsModule } from './crops/crops.module'
+import { APP_FILTER } from '@nestjs/core'
+import { AppErrorFilter } from './crops/filters/app-error.filter'
+import { AppHttpExceptionFilter } from './crops/filters/app-http-exception.filter'
+import { AppQueryFailedErrorFilter } from './crops/filters/app-query-failed-error.filter'
+import { AppAllExceptionsFilter } from './crops/filters/app-all-exceptions.filter'
 
 @Module({
   imports: [
@@ -28,18 +29,10 @@ import { AppQueryFailedErrorFilter } from './crops/filters/app-query-failed-erro
   ],
   controllers: [],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: AppErrorFilter,
-    },
-    {
-      provide: APP_FILTER,
-      useClass: AppHttpExceptionFilter,
-    },
-    {
-      provide: APP_FILTER,
-      useClass: AppQueryFailedErrorFilter,
-    },
+    { provide: APP_FILTER, useClass: AppAllExceptionsFilter },
+    { provide: APP_FILTER, useClass: AppErrorFilter },
+    { provide: APP_FILTER, useClass: AppHttpExceptionFilter },
+    { provide: APP_FILTER, useClass: AppQueryFailedErrorFilter },
   ],
 })
 export class AppModule {}
