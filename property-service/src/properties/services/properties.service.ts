@@ -4,12 +4,14 @@ import { FindOptionsSelect, Repository } from 'typeorm'
 import { CreatePropertyDto } from '../dtos/create-property.dto'
 import { UpdatePropertyDto } from '../dtos/update-property.dto'
 import { Property } from '../entities/property.entity'
+import { CropsService } from './crops.service'
 
 @Injectable()
 export class PropertiesService {
   constructor(
     @InjectRepository(Property)
     private readonly repository: Repository<Property>,
+    private readonly cropsService: CropsService,
   ) {}
 
   async create(createPropertyDto: CreatePropertyDto) {
@@ -50,7 +52,11 @@ export class PropertiesService {
   }
 
   async remove(id: number) {
-    const foundProperty = await this.findByIdOrFail(id)
+    const [foundProperty] = await Promise.all([
+      this.findByIdOrFail(id), //
+      this.cropsService.propertyExistsOrFail(id),
+    ])
+
     const removedProperty = await this.repository.remove([foundProperty])
     return removedProperty
   }

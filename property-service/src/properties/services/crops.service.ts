@@ -1,6 +1,7 @@
 import { ConflictException, Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
 import { firstValueFrom } from 'rxjs'
+import { CropsPattern } from '../patterns/crops.pattern'
 // import { CropsPattern } from '../patterns/crops.pattern'
 
 @Injectable()
@@ -10,14 +11,14 @@ export class CropsService {
     private readonly clientProxy: ClientProxy,
   ) {}
 
-  // async propertyExistsOrFail(commodityId: number) {
-  //   const observable = this.clientProxy.send(CropsPattern.PROPERTY_EXISTS, commodityId)
-  //   const { data } = await firstValueFrom<{ data: boolean }>(observable)
-  //   if (data) {
-  //     throw new ConflictException(`The Commodity with id ${commodityId} cannot be deleted because it is referenced in the Property table.`);
-  //   }
-  //   return data
-  // }
+  async propertyExistsOrFail(propertyId: number) {
+    const observable = this.clientProxy.send(CropsPattern.PROPERTY_EXISTS, propertyId)
+    const { data } = await firstValueFrom<{ data: boolean }>(observable)
+    if (data) {
+      throw new ConflictException(`The Property with id ${propertyId} cannot be deleted because it is referenced in the Crops table.`);
+    }
+    return data
+  }
 
 
 }

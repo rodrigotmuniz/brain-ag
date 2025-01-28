@@ -9,6 +9,7 @@ import { PropertiesService } from './services/properties.service'
 import { LocationExistsValidator } from './validators/location-exists.validator'
 import { ProducerExistsValidator } from './validators/producer-exists.validator'
 import { TotalAreaSizeValidator } from './validators/total-area-size.validator'
+import { CropsService } from './services/crops.service'
 
 @Module({
   imports: [
@@ -33,12 +34,22 @@ import { TotalAreaSizeValidator } from './validators/total-area-size.validator'
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT',
+        options: {
+          host: process.env.CROPS_HOST ?? 'localhost',
+          port: Number(process.env.CROPS_PORT || 3002),
+        },
+      },
+    ]),
   ],
   controllers: [PropertiesController],
   providers: [
     PropertiesService,
     ProducersService,
     LocationsService,
+    CropsService,
     LocationExistsValidator,
     ProducerExistsValidator,
     TotalAreaSizeValidator,

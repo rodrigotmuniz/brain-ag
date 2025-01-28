@@ -11,7 +11,6 @@ export class CommoditiesService {
   constructor(
     @InjectRepository(Commodity)
     private readonly repository: Repository<Commodity>,
-    // private readonly propertiesService: PropertiesService,
     private readonly cropsService: CropsService,
   ) {}
 
