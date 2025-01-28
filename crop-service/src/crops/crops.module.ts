@@ -3,8 +3,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CropsController } from './crops.controller'
 import { Crop } from './entities/crop.entity'
-import { CropsService } from './services/crops.service'
 import { CommoditiesService } from './services/commodities.service'
+import { CropsService } from './services/crops.service'
 import { PropertiesService } from './services/properties.service'
 import { CommodityExistsValidator } from './validators/commodity-exists.validator'
 import { PropertyExistsValidator } from './validators/property-exists.validator'
@@ -19,7 +19,7 @@ import { PropertyExistsValidator } from './validators/property-exists.validator'
         options: {
           host: process.env.PROPERTY_HOST ?? 'localhost',
           port: Number(process.env.PROPERTY_PORT || 3006),
-        }, // Microservice address
+        },
       },
     ]),
     ClientsModule.register([
@@ -29,7 +29,7 @@ import { PropertyExistsValidator } from './validators/property-exists.validator'
         options: {
           host: process.env.COMMODITY_HOST ?? 'localhost',
           port: Number(process.env.COMMODITY_PORT || 3001),
-        }, // Microservice address
+        },
       },
     ]),
   ],

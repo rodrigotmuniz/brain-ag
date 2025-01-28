@@ -11,7 +11,7 @@ import { CropsController } from './crops.controller'
         options: {
           host: process.env.CROPS_HOST ?? 'localhost',
           port: Number(process.env.CROPS_PORT || 3002),
-        }, // Microservice address
+        },
       },
     ]),
   ],

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
-import { ProducersController } from './producers.controller'
 import { ClientsModule, Transport } from '@nestjs/microservices'
+import { ProducersController } from './producers.controller'
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices'
         options: {
           host: process.env.PRODUCER_HOST ?? 'localhost',
           port: Number(process.env.PRODUCER_PORT || 3005),
-        }, // Microservice address
+        },
       },
     ]),
   ],

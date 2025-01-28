@@ -22,7 +22,7 @@ import { AppQueryFailedErrorFilter } from './locations/filters/app-query-failed-
         options: {
           host: process.env.LOCATION_HOST ?? 'localhost',
           port: Number(process.env.PORT || 3004),
-        }, // Microservice address
+        },
       },
     ]),
     TypeOrmModule.forRoot({

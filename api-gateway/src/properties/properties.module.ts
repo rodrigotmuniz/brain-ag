@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { PropertiesController } from './properties.controller';
+import { Module } from '@nestjs/common'
+import { ClientsModule, Transport } from '@nestjs/microservices'
+import { PropertiesController } from './properties.controller'
 
 @Module({
   imports: [
@@ -11,13 +11,12 @@ import { PropertiesController } from './properties.controller';
         options: {
           host: process.env.PROPERTY_HOST ?? 'localhost',
           port: Number(process.env.PROPERTY_PORT || 3006),
-        }, // Microservice address
+        },
       },
     ]),
   ],
   controllers: [PropertiesController],
 })
 export class PropertiesModule {
-  constructor() {
-  }
+  constructor() {}
 }

@@ -11,7 +11,7 @@ import { DashboardsController } from './dashboards.controller'
         options: {
           host: process.env.DASHBOARDS_HOST ?? 'localhost',
           port: Number(process.env.DASHBOARDS_PORT || 3003),
-        }, // Microservice address
+        },
       },
     ]),
   ],

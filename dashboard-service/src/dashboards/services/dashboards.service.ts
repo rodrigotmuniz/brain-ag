@@ -12,11 +12,6 @@ export class DashboardsService {
     private readonly cropsService: CropsService,
   ) {}
 
-  // async create(createDashboardDto: CreateDashboardDto) {
-  //   const newDashboard = this.repository.create(createDashboardDto)
-  //   const savedDashboard = await this.repository.save(newDashboard)
-  //   return savedDashboard
-  // }
 
   async findPropertiesAmount() {
     const propertiesAmount = await this.propertiesService.findPropertiesAmount()

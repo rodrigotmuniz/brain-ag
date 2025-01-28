@@ -1,12 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommoditiesModule } from './commodities/commodities.module';
-import { AppErrorFilter } from './commodities/filters/app-error.filter';
-import { AppHttpExceptionFilter } from './commodities/filters/app-http-exception.filter';
-import { APP_FILTER } from '@nestjs/core';
-import { AppQueryFailedErrorFilter } from './commodities/filters/app-query-failed-error.filter';
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { APP_FILTER } from '@nestjs/core'
+import { ClientsModule, Transport } from '@nestjs/microservices'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { CommoditiesModule } from './commodities/commodities.module'
+import { AppErrorFilter } from './commodities/filters/app-error.filter'
+import { AppHttpExceptionFilter } from './commodities/filters/app-http-exception.filter'
+import { AppQueryFailedErrorFilter } from './commodities/filters/app-query-failed-error.filter'
 
 @Module({
   imports: [
@@ -17,13 +17,12 @@ import { AppQueryFailedErrorFilter } from './commodities/filters/app-query-faile
     }),
     ClientsModule.register([
       {
-        name:
-          process.env.COMMODITY_SERVICE_CLIENT || 'COMMODITY_SERVICE_CLIENT',
+        name: process.env.COMMODITY_SERVICE_CLIENT || 'COMMODITY_SERVICE_CLIENT',
         transport: Transport.TCP, // TCP communication
         options: {
           host: process.env.COMMODITY_HOST ?? 'localhost',
           port: Number(process.env.PORT || 3001),
-        }, // Microservice address
+        },
       },
     ]),
     TypeOrmModule.forRoot({

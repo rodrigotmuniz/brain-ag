@@ -20,7 +20,7 @@ import { TotalAreaSizeValidator } from './validators/total-area-size.validator'
         options: {
           host: process.env.PRODUCER_HOST ?? 'localhost',
           port: Number(process.env.PRODUCER_PORT || 3005),
-        }, // Microservice address
+        },
       },
     ]),
     ClientsModule.register([
@@ -30,7 +30,7 @@ import { TotalAreaSizeValidator } from './validators/total-area-size.validator'
         options: {
           host: process.env.LOCATION_HOST ?? 'localhost',
           port: Number(process.env.LOCATION_PORT || 3004),
-        }, // Microservice address
+        },
       },
     ]),
   ],
