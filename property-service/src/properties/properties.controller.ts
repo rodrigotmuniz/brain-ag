@@ -63,4 +63,9 @@ export class PropertiesController {
   producerExists(@Payload() propertyExists: number) {
     return this.propertiesService.producerExists(propertyExists)
   }
+
+  @MessagePattern(PropertiesPattern.GROUP_LOCATIONS)
+  groupLocations() {
+    return this.propertiesService.groupLocations()
+  }
 }

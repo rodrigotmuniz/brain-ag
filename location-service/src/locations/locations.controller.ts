@@ -42,4 +42,9 @@ export class LocationsController {
   findGroupedStates() {
     return this.locationsService.findGroupedStates();
   }
+
+  @MessagePattern(LocationsPattern.FIND_BY_IDS)
+  findByIds(@Payload() ids: number[]) {
+    return this.locationsService.findByIds(ids);
+  }
 }

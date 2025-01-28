@@ -10,9 +10,9 @@ export class LocationsService {
     private readonly clientProxy: ClientProxy,
   ) {}
 
-  async findGroupedStates() {
-    const observable = this.clientProxy.send(LocationsPattern.FIND_GROUPED_STATES, {})
-    const { data: groupedStates} = await firstValueFrom(observable)
-    return groupedStates
+  async findByIds(ids: number[]) {
+    const observable = this.clientProxy.send(LocationsPattern.FIND_BY_IDS, ids)
+    const { data: locationIds} = await firstValueFrom(observable)
+    return locationIds
   }
 }

@@ -67,7 +67,7 @@ export class PropertiesService {
       select: { id: true },
     })
     console.log('foundProperty', foundProperty)
-    const a =  !!foundProperty
+    const a = !!foundProperty
     console.log('a', a)
     return a
   }
@@ -106,5 +106,16 @@ export class PropertiesService {
       select: { id: true },
     })
     return !!foundLocation
+  }
+
+  async groupLocations() {
+    const groupedLocations = await this.repository
+      .createQueryBuilder('properties')
+      .select('properties.locationId', 'locationId')
+      .addSelect('COUNT(properties.locationId)', 'count')
+      .groupBy('properties.locationId')
+      .orderBy('count', 'DESC')
+      .getRawMany()
+    return { groupedLocations }
   }
 }

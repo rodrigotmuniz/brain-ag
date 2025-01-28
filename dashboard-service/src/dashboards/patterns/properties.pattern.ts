@@ -10,4 +10,5 @@ export enum PropertiesPattern {
   FIND_LAND_USED = 'property-service.findLandUsed',
   LOCATION_EXISTS = 'property-service.locationExists',
   PRODUCER_EXISTS = 'property-service.producerExists',
+  GROUP_LOCATIONS = 'property-service.groupLocations',
 }

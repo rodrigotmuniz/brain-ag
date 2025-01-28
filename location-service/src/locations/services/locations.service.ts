@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { FindOptionsSelect, Repository } from 'typeorm'
+import { FindOptionsSelect, In, Repository } from 'typeorm'
 import { CreateLocationDto } from '../dtos/create-location.dto'
 import { UpdateLocationDto } from '../dtos/update-location.dto'
 import { Location } from '../entities/location.entity'
@@ -12,7 +12,6 @@ export class LocationsService {
     @InjectRepository(Location)
     private readonly repository: Repository<Location>,
     private readonly propertiesService: PropertiesService,
-
   ) {}
 
   async create(createLocationDto: CreateLocationDto) {
@@ -57,7 +56,6 @@ export class LocationsService {
     return foundProducer
   }
 
-
   async remove(id: number) {
     const [location] = await Promise.all([
       this.findByIdOrFail(id), //
@@ -83,5 +81,10 @@ export class LocationsService {
       .groupBy('state')
       .orderBy('count', 'DESC')
       .getRawMany()
+  }
+
+  async findByIds(ids: number[]) {
+    const locations = await this.repository.find({ where: { id: In(ids) } })
+    return locations
   }
 }

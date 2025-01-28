@@ -12,7 +12,6 @@ export class DashboardsService {
     private readonly cropsService: CropsService,
   ) {}
 
-
   async findPropertiesAmount() {
     const propertiesAmount = await this.propertiesService.findPropertiesAmount()
     return propertiesAmount
@@ -24,8 +23,35 @@ export class DashboardsService {
   }
 
   async findGroupedStates() {
-    const totalAreaSum = await this.locationsService.findGroupedStates()
-    return totalAreaSum
+    const { groupedLocations } = await this.propertiesService.groupLocations()
+
+    const ids = groupedLocations.map((group) => group.locationId)
+    const countLocations = await this.locationsService.findByIds(ids)
+
+    const response = this.combineLocationAndProperties(countLocations, groupedLocations)
+    return response
+  }
+
+  private combineLocationAndProperties(countLocations, groupedLocations) {
+    const map = new Map()
+
+    for (let countLocation of countLocations) {
+      const stateMap = map.get(countLocation.state)
+      const amount = +groupedLocations.find((groupedLocation) => groupedLocation.locationId === countLocation.id).count
+      if (!stateMap) {
+        map.set(countLocation.state, {
+          state: countLocation.state,
+          count: amount,
+        })
+      } else {
+        map.set(countLocation.state, {
+          state: countLocation.state,
+          count: stateMap.count + amount,
+        })
+      }
+    }
+
+    return [...map.values()]
   }
 
   async findGroupedCrops(year: number) {

@@ -27,4 +27,11 @@ export class PropertiesService {
     const { data: landUsed } = await firstValueFrom(observable)
     return landUsed
   }
+
+  async groupLocations() {
+    const observable = this.clientProxy.send(PropertiesPattern.GROUP_LOCATIONS, {})
+    const { data } = await firstValueFrom(observable)
+    return data
+  }
 }
+// <{ data: { locationId: number; count: number }[] }>
