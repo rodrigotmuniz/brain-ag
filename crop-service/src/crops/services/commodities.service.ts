@@ -1,8 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
-import { lastValueFrom } from 'rxjs'
+import { firstValueFrom } from 'rxjs'
 import { CommoditiesPattern } from '../patterns/commodities.pattern'
-import { Commodity } from '../entities/commodity.entity'
 
 @Injectable()
 export class CommoditiesService {
@@ -13,7 +12,7 @@ export class CommoditiesService {
 
   async findByIdOrFail(id: number) {
     const observable = this.clientProxy.send(CommoditiesPattern.FIND_ONE, id)
-    const commodity = await lastValueFrom(observable)
+    const commodity = await firstValueFrom(observable)
     if (!commodity) {
       throw new NotFoundException(`Commodity not found. No commodity exists with the provided ID: ${id}.`)
     }
@@ -22,7 +21,7 @@ export class CommoditiesService {
 
   async exists(id: number) {
     const observable = this.clientProxy.send(CommoditiesPattern.EXISTS, id)
-    const exists = await lastValueFrom(observable)
+    const exists = await firstValueFrom(observable)
     return exists
   }
 
@@ -36,7 +35,7 @@ export class CommoditiesService {
 
   async findBatchByIds(ids: number[]) {
     const observable = this.clientProxy.send(CommoditiesPattern.FIND_BATCH_BY_IDS, ids)
-    const { data } = await lastValueFrom(observable)
+    const { data } = await firstValueFrom(observable)
     return data
   }
 }

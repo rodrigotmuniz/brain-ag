@@ -8,4 +8,6 @@ export enum PropertiesPattern {
   FIND_PROPERTIES_AMOUNT = 'property-service.findPropertiesAmount',
   FIND_TOTAL_AREA = 'property-service.findTotalArea',
   FIND_LAND_USED = 'property-service.findLandUsed',
+  LOCATION_EXISTS = 'property-service.locationExists',
+  PRODUCER_EXISTS = 'property-service.producerExists',
 }

@@ -1,21 +1,8 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  InternalServerErrorException,
-  Param,
-  ParseIntPipe,
-  Patch,
-  Post,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { CreatePropertyDto } from './dtos/create-property.dto';
-import { UpdatePropertyDto } from './dtos/update-property.dto';
-import { PropertiesPattern } from './properties.pattern';
-import { lastValueFrom } from 'rxjs';
+import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Patch, Post } from '@nestjs/common'
+import { ClientProxy } from '@nestjs/microservices'
+import { CreatePropertyDto } from './dtos/create-property.dto'
+import { UpdatePropertyDto } from './dtos/update-property.dto'
+import { PropertiesPattern } from './properties.pattern'
 
 @Controller('properties')
 export class PropertiesController {
@@ -26,32 +13,29 @@ export class PropertiesController {
 
   @Post()
   async create(@Body() createPropertyDto: CreatePropertyDto) {
-    return this.clientProxy.send(PropertiesPattern.CREATE, createPropertyDto);
+    return this.clientProxy.send(PropertiesPattern.CREATE, createPropertyDto)
   }
 
   @Get()
   findAll() {
-    return this.clientProxy.send(PropertiesPattern.FIND_ALL, {});
+    return this.clientProxy.send(PropertiesPattern.FIND_ALL, {})
   }
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.clientProxy.send(PropertiesPattern.FIND_ONE, id);
+    return this.clientProxy.send(PropertiesPattern.FIND_ONE, id)
   }
 
   @Patch(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updatePropertyDto: UpdatePropertyDto,
-  ) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatePropertyDto: UpdatePropertyDto) {
     return this.clientProxy.send(PropertiesPattern.UPDATE, {
       ...updatePropertyDto,
       id,
-    });
+    })
   }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
-    return this.clientProxy.send(PropertiesPattern.REMOVE, id);
+    return this.clientProxy.send(PropertiesPattern.REMOVE, id)
   }
 }

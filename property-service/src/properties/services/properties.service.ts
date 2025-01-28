@@ -87,4 +87,20 @@ export class PropertiesService {
       .getRawMany()
     return { landUsed }
   }
+
+  async producerExists(producerId: number) {
+    const foundProducer = await this.repository.findOne({
+      where: { producerId },
+      select: { id: true },
+    })
+    return !!foundProducer
+  }
+
+  async locationExists(locationId: number) {
+    const foundLocation = await this.repository.findOne({
+      where: { locationId },
+      select: { id: true },
+    })
+    return !!foundLocation
+  }
 }

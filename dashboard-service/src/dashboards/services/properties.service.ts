@@ -1,6 +1,6 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
-import { lastValueFrom } from 'rxjs'
+import { firstValueFrom } from 'rxjs'
 import { PropertiesPattern } from '../patterns/properties.pattern'
 
 @Injectable()
@@ -12,19 +12,19 @@ export class PropertiesService {
 
   async findPropertiesAmount() {
     const observable = this.clientProxy.send(PropertiesPattern.FIND_PROPERTIES_AMOUNT, {})
-    const propertiesAmount = await lastValueFrom(observable)
+    const propertiesAmount = await firstValueFrom(observable)
     return propertiesAmount
   }
 
   async findTotalArea() {
     const observable = this.clientProxy.send(PropertiesPattern.FIND_TOTAL_AREA, {})
-    const propertiesAmount = await lastValueFrom(observable)
+    const propertiesAmount = await firstValueFrom(observable)
     return propertiesAmount
   }
 
   async findLandUsed() {
     const observable = this.clientProxy.send(PropertiesPattern.FIND_LAND_USED, {})
-    const landUsed = await lastValueFrom(observable)
+    const landUsed = await firstValueFrom(observable)
     return landUsed
   }
 }

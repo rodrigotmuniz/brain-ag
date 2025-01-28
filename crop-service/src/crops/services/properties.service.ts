@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common'
 import { ClientProxy } from '@nestjs/microservices'
-import { lastValueFrom } from 'rxjs'
+import { firstValueFrom } from 'rxjs'
 import { PropertiesPattern } from '../patterns/properties.pattern'
 
 @Injectable()
@@ -12,7 +12,7 @@ export class PropertiesService {
 
   async exists(id: number) {
     const observable = this.clientProxy.send(PropertiesPattern.EXISTS, id)
-    const exists = await lastValueFrom<boolean>(observable)
+    const exists = await firstValueFrom<boolean>(observable)
     return exists
   }
   async existsOrFail(id: number) {

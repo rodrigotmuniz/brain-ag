@@ -52,13 +52,13 @@ export class CommoditiesService {
   }
 
   async remove(id: number) {
-    const foundCommodity = await this.findByIdOrFail(id)
-    await this.cropsService.commodityExistsOrFail(id)
+    const [foundCommodity] = await Promise.all([
+      this.findByIdOrFail(id), //
+      this.cropsService.commodityExistsOrFail(id),
+    ])
 
-    if (foundCommodity) {
-      const removedCommodity = await this.repository.remove([foundCommodity])
-      return removedCommodity
-    }
+    const removedCommodity = await this.repository.remove([foundCommodity])
+    return removedCommodity
   }
 
   async exists(id: number) {

@@ -53,4 +53,14 @@ export class PropertiesController {
   findLandUsed() {
     return this.propertiesService.findLandUsed()
   }
+
+  @MessagePattern(PropertiesPattern.LOCATION_EXISTS)
+  locationExists(@Payload() commodityId: number) {
+    return this.propertiesService.locationExists(commodityId)
+  }
+
+  @MessagePattern(PropertiesPattern.PRODUCER_EXISTS)
+  producerExists(@Payload() propertyExists: number) {
+    return this.propertiesService.producerExists(propertyExists)
+  }
 }

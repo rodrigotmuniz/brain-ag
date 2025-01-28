@@ -1,7 +1,7 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { lastValueFrom } from 'rxjs';
-import { LocationsPattern } from '../patterns/locations.pattern';
+import { Inject, Injectable } from '@nestjs/common'
+import { ClientProxy } from '@nestjs/microservices'
+import { firstValueFrom } from 'rxjs'
+import { LocationsPattern } from '../patterns/locations.pattern'
 
 @Injectable()
 export class LocationsService {
@@ -11,8 +11,8 @@ export class LocationsService {
   ) {}
 
   async findGroupedStates() {
-    const observable = this.clientProxy.send(LocationsPattern.FIND_GROUPED_STATES, {});
-    const groupedStates = await lastValueFrom(observable);
-    return groupedStates;
+    const observable = this.clientProxy.send(LocationsPattern.FIND_GROUPED_STATES, {})
+    const groupedStates = await firstValueFrom(observable)
+    return groupedStates
   }
 }

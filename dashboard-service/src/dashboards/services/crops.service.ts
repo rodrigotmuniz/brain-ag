@@ -1,6 +1,6 @@
-import { BadGatewayException, Inject, Injectable, NotFoundException } from '@nestjs/common'
-import { ClientProxy, RpcException } from '@nestjs/microservices'
-import { catchError, firstValueFrom, lastValueFrom, throwError } from 'rxjs'
+import { Inject, Injectable } from '@nestjs/common'
+import { ClientProxy } from '@nestjs/microservices'
+import { firstValueFrom } from 'rxjs'
 import { CropsPattern } from '../patterns/crops.pattern'
 
 @Injectable()
