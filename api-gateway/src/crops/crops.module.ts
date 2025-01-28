@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ClientsModule, Transport } from '@nestjs/microservices'
+import { ClientsModule } from '@nestjs/microservices'
 import { CropsController } from './crops.controller'
 
 @Module({
@@ -7,10 +7,9 @@ import { CropsController } from './crops.controller'
     ClientsModule.register([
       {
         name: process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT',
-        transport: Transport.TCP,
         options: {
-          host: process.env.CROPS_HOST ?? 'localhost',
-          port: Number(process.env.CROPS_PORT || 3002),
+          host: process.env.CROP_HOST ?? 'localhost',
+          port: Number(process.env.CROP_PORT || 3002),
         },
       },
     ]),

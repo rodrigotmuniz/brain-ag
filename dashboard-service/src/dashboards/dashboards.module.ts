@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ClientsModule, Transport } from '@nestjs/microservices'
+import { ClientsModule } from '@nestjs/microservices'
 import { DashboardsController } from './dashboards.controller'
 import { CropsService } from './services/crops.service'
 import { DashboardsService } from './services/dashboards.service'
@@ -21,8 +21,8 @@ import { PropertiesService } from './services/properties.service'
       {
         name: process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT',
         options: {
-          host: process.env.CROPS_HOST ?? 'localhost',
-          port: Number(process.env.CROPS_PORT || 3002),
+          host: process.env.CROP_HOST ?? 'localhost',
+          port: Number(process.env.CROP_PORT || 3002),
         },
       },
     ]),

@@ -29,15 +29,4 @@ export class Property {
   validateAreas() {
     return totalAreaSizeValidation(this.totalArea, this.agriculturalArea, this.vegetationArea)
   }
-
-  // @BeforeInsert()
-  // @BeforeUpdate()
-  // validateAreas() {
-  //   const sumOfAreas = this.agriculturalArea + this.vegetationArea;
-  //   if (this.totalArea < sumOfAreas) {
-  //     throw new BadRequestException(
-  //       `Total area (${this.totalArea}) must be greater than or equal to the sum of agricultural area (${this.agriculturalArea}) and vegetation area (${this.vegetationArea}).`,
-  //     );
-  //   }
-  // }
 }

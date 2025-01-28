@@ -19,7 +19,7 @@ services:
     build:
       context: ./commodity-service
     ports:
-      - '3005:3005'
+      - '3001:3001'
     env_file:
       - ./commodity-service/.env
     environment:
@@ -31,7 +31,7 @@ services:
     build:
       context: ./crop-service
     ports:
-      - '3005:3005'
+      - '3002:3002'
     env_file:
       - ./crop-service/.env
     environment:
@@ -43,7 +43,7 @@ services:
     build:
       context: ./dashboard-service
     ports:
-      - '3005:3005'
+      - '3003:3003'
     env_file:
       - ./dashboard-service/.env
     environment:
@@ -60,7 +60,7 @@ services:
     build:
       context: ./location-service
     ports:
-      - '3005:3005'
+      - '3004:3004'
     env_file:
       - ./location-service/.env
     environment:
@@ -84,7 +84,7 @@ services:
     build:
       context: ./property-service
     ports:
-      - '3005:3005'
+      - '3006:3006'
     env_file:
       - ./property-service/.env
     environment:

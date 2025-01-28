@@ -13,15 +13,13 @@ import { DashboardsModule } from './dashboards/dashboards.module'
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env'],
-      // ignoreEnvFile: true // Only in servers that you dont pass the .env file directly
-      // validationSchema// using joi
     }),
+    CropsModule,
+    DashboardsModule,
     CommoditiesModule,
     ProducersModule,
     LocationsModule,
     PropertiesModule,
-    CropsModule,
-    DashboardsModule,
   ],
   controllers: [],
   providers: [{ provide: APP_FILTER, useClass: AppAllExceptionsFilter }],

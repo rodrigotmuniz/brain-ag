@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
+import { ClientsModule } from '@nestjs/microservices'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CommoditiesController } from './commodities.controller'
 import { Commodity } from './entities/commodity.entity'
 import { CommoditiesService } from './services/commodities.service'
-import { ClientsModule } from '@nestjs/microservices'
 import { CropsService } from './services/crops.service'
 
 @Module({
@@ -22,8 +22,8 @@ import { CropsService } from './services/crops.service'
       {
         name: process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT',
         options: {
-          host: process.env.CROPS_HOST ?? 'localhost',
-          port: Number(process.env.CROPS_PORT || 3002),
+          host: process.env.CROP_HOST ?? 'localhost',
+          port: Number(process.env.CROP_PORT || 3002),
         },
       },
     ]),

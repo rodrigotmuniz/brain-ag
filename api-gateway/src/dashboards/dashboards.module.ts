@@ -6,11 +6,11 @@ import { DashboardsController } from './dashboards.controller'
   imports: [
     ClientsModule.register([
       {
-        name: process.env.DASHBOARDS_SERVICE_CLIENT || 'DASHBOARDS_SERVICE_CLIENT',
+        name: process.env.DASHBOARD_SERVICE_CLIENT || 'DASHBOARD_SERVICE_CLIENT',
         transport: Transport.TCP,
         options: {
-          host: process.env.DASHBOARDS_HOST ?? 'localhost',
-          port: Number(process.env.DASHBOARDS_PORT || 3003),
+          host: process.env.DASHBOARD_HOST ?? 'localhost',
+          port: Number(process.env.DASHBOARD_PORT || 3003),
         },
       },
     ]),

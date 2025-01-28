@@ -5,7 +5,7 @@ import { DashboardsPattern } from './dashboards.pattern'
 @Controller('dashboards')
 export class DashboardsController {
   constructor(
-    @Inject(process.env.DASHBOARDS_SERVICE_CLIENT || 'DASHBOARDS_SERVICE_CLIENT')
+    @Inject(process.env.DASHBOARD_SERVICE_CLIENT || 'DASHBOARD_SERVICE_CLIENT')
     private readonly clientProxy: ClientProxy,
   ) {}
 

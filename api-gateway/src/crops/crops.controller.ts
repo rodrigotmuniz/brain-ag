@@ -10,12 +10,10 @@ export class CropsController {
     @Inject(process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT')
     private readonly clientProxy: ClientProxy,
   ) {
-    // console.log('crops - clientProxy', clientProxy)
   }
 
   @Post()
   create(@Body() createCropDto: CreateCropDto) {
-    console.log('create')
     return this.clientProxy.send(CropsPattern.CREATE, createCropDto)
   }
 

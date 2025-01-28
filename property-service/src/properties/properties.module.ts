@@ -38,8 +38,8 @@ import { TotalAreaSizeValidator } from './validators/total-area-size.validator'
       {
         name: process.env.CROP_SERVICE_CLIENT || 'CROP_SERVICE_CLIENT',
         options: {
-          host: process.env.CROPS_HOST ?? 'localhost',
-          port: Number(process.env.CROPS_PORT || 3002),
+          host: process.env.CROP_HOST ?? 'localhost',
+          port: Number(process.env.CROP_PORT || 3002),
         },
       },
     ]),
