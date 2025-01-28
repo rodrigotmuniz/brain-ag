@@ -8,7 +8,7 @@ import { ResponseInterceptor } from './properties/interceptors/response.intercep
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
     transport: Transport.TCP,
-    options: { host: '0.0.0.0', port: Number(process.env.PORT || 3006) },
+    options: { host: '0.0.0.0', port: Number(process.env.PROPERTY_PORT || 3006) },
   })
 
   app.useGlobalPipes(

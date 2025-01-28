@@ -15,7 +15,7 @@ import { PropertyExistsValidator } from './validators/property-exists.validator'
     ClientsModule.register([
       {
         name: process.env.PROPERTY_SERVICE_CLIENT || 'PROPERTY_SERVICE_CLIENT',
-        transport: Transport.TCP, // TCP communication
+        transport: Transport.TCP,
         options: {
           host: process.env.PROPERTY_HOST ?? 'localhost',
           port: Number(process.env.PROPERTY_PORT || 3006),
@@ -25,7 +25,7 @@ import { PropertyExistsValidator } from './validators/property-exists.validator'
     ClientsModule.register([
       {
         name: process.env.COMMODITY_SERVICE_CLIENT || 'COMMODITY_SERVICE_CLIENT',
-        transport: Transport.TCP, // TCP communication
+        transport: Transport.TCP,
         options: {
           host: process.env.COMMODITY_HOST ?? 'localhost',
           port: Number(process.env.COMMODITY_PORT || 3001),

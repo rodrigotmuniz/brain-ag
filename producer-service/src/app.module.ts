@@ -15,18 +15,7 @@ import { AppAllExceptionsFilter } from './producers/filters/app-all-exceptions.f
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env'],
-      // ignoreEnvFile: true // Only in servers that you dont pass the .env file directly
-      // validationSchema// using joi
     }),
-    ClientsModule.register([
-      {
-        name: process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT',
-        options: {
-          host: process.env.PRODUCER_HOST ?? 'localhost',
-          port: Number(process.env.PORT || 3005),
-        },
-      },
-    ]),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as 'postgres',
       host: process.env.DB_HOST,
@@ -39,12 +28,11 @@ import { AppAllExceptionsFilter } from './producers/filters/app-all-exceptions.f
     }),
     ProducersModule,
   ],
-  // controllers: [ProducersController],
   providers: [
     { provide: APP_FILTER, useClass: AppAllExceptionsFilter },
     { provide: APP_FILTER, useClass: AppErrorFilter },
     { provide: APP_FILTER, useClass: AppHttpExceptionFilter },
     { provide: APP_FILTER, useClass: AppQueryFailedErrorFilter },
-  ]
+  ],
 })
 export class AppModule {}

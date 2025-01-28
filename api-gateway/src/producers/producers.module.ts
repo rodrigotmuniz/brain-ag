@@ -7,7 +7,7 @@ import { ProducersController } from './producers.controller'
     ClientsModule.register([
       {
         name: process.env.PRODUCER_SERVICE_CLIENT || 'PRODUCER_SERVICE_CLIENT',
-        transport: Transport.TCP, // TCP communication
+        transport: Transport.TCP,
         options: {
           host: process.env.PRODUCER_HOST ?? 'localhost',
           port: Number(process.env.PRODUCER_PORT || 3005),

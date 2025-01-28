@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER } from '@nestjs/core'
-import { ClientsModule, Transport } from '@nestjs/microservices'
+import { ClientsModule } from '@nestjs/microservices'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CommoditiesModule } from './commodities/commodities.module'
 import { AppErrorFilter } from './commodities/filters/app-error.filter'
@@ -13,19 +13,7 @@ import { AppAllExceptionsFilter } from './commodities/filters/app-all-exceptions
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env'],
-      // ignoreEnvFile: true // Only in servers that you dont pass the .env file directly
-      // validationSchema// using joi
     }),
-    ClientsModule.register([
-      {
-        name: process.env.COMMODITY_SERVICE_CLIENT || 'COMMODITY_SERVICE_CLIENT',
-        transport: Transport.TCP, // TCP communication
-        options: {
-          host: process.env.COMMODITY_HOST ?? 'localhost',
-          port: Number(process.env.PORT || 3001),
-        },
-      },
-    ]),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as 'postgres',
       host: process.env.DB_HOST,

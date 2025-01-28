@@ -12,8 +12,6 @@ import { AppAllExceptionsFilter } from './crops/filters/app-all-exceptions.filte
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env'],
-      // ignoreEnvFile: true // Only in servers that you dont pass the .env file directly
-      // validationSchema// using joi
     }),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as 'postgres',

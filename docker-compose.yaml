@@ -5,13 +5,170 @@ services:
       context: ./api-gateway
     ports:
       - '3000:3000'
-    environment:
-      - PRODUCER_HOST=producer-service
+    env_file:
+      - ./api-gateway/.env
     depends_on:
+      - commodity-service
+      - crop-service
+      - dashboard-service
+      - location-service
       - producer-service
+      - property-service
+
+  commodity-service:
+    build:
+      context: ./commodity-service
+    ports:
+      - '3005:3005'
+    env_file:
+      - ./commodity-service/.env
+    environment:
+      - DB_HOST=host.docker.internal
+    depends_on:
+      - commodities-db
+
+  crop-service:
+    build:
+      context: ./crop-service
+    ports:
+      - '3005:3005'
+    env_file:
+      - ./crop-service/.env
+    environment:
+      - DB_HOST=host.docker.internal
+    depends_on:
+      - crops-db
+
+  dashboard-service:
+    build:
+      context: ./dashboard-service
+    ports:
+      - '3005:3005'
+    env_file:
+      - ./dashboard-service/.env
+    environment:
+      - DB_HOST=host.docker.internal
+    depends_on:
+      - commodity-service
+      - crop-service
+      - location-service
+      - producer-service
+      - property-service
+      - dashboards-db
+
+  location-service:
+    build:
+      context: ./location-service
+    ports:
+      - '3005:3005'
+    env_file:
+      - ./location-service/.env
+    environment:
+      - DB_HOST=host.docker.internal
+    depends_on:
+      - locations-db
 
   producer-service:
     build:
       context: ./producer-service
     ports:
-      - '3003:3003'
+      - '3005:3005'
+    env_file:
+      - ./producer-service/.env
+    environment:
+      - DB_HOST=host.docker.internal
+    depends_on:
+      - producers-db
+
+  property-service:
+    build:
+      context: ./property-service
+    ports:
+      - '3005:3005'
+    env_file:
+      - ./property-service/.env
+    environment:
+      - DB_HOST=host.docker.internal
+    depends_on:
+      - properties-db
+
+
+  commodities-db:
+    image: postgres:15
+    container_name: commodities-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: commodities
+    ports:
+      - '5001:5432'
+    volumes:
+      - commodities-db-data:/var/lib/postgresql/data
+
+  crops-db:
+    image: postgres:15
+    container_name: crops-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crops
+    ports:
+      - '5002:5432'
+    volumes:
+      - crops-db-data:/var/lib/postgresql/data
+
+  dashboards-db:
+    image: postgres:15
+    container_name: dashboards-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dashboards
+    ports:
+      - '5003:5432'
+    volumes:
+      - dashboards-db-data:/var/lib/postgresql/data
+
+  locations-db:
+    image: postgres:15
+    container_name: locations-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: locations
+    ports:
+      - '5004:5432'
+    volumes:
+      - locations-db-data:/var/lib/postgresql/data
+
+  producers-db:
+    image: postgres:15
+    container_name: producers-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: producers
+    ports:
+      - '5005:5432'
+    volumes:
+      - producers-db-data:/var/lib/postgresql/data
+
+  properties-db:
+    image: postgres:15
+    container_name: properties-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: properties
+    ports:
+      - '5006:5432'
+    volumes:
+      - properties-db-data:/var/lib/postgresql/data
+
+volumes:
+  commodities-db-data:
+  crops-db-data:
+  dashboards-db-data:
+  locations-db-data:
+  producers-db-data:
+  properties-db-data:

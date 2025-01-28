@@ -7,7 +7,7 @@ import { DashboardsController } from './dashboards.controller'
     ClientsModule.register([
       {
         name: process.env.DASHBOARDS_SERVICE_CLIENT || 'DASHBOARDS_SERVICE_CLIENT',
-        transport: Transport.TCP, // TCP communication
+        transport: Transport.TCP,
         options: {
           host: process.env.DASHBOARDS_HOST ?? 'localhost',
           port: Number(process.env.DASHBOARDS_PORT || 3003),

@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppErrorFilter } from './properties/filters/app-error.filter';
 import { PropertiesModule } from './properties/properties.module';
 import { AppHttpExceptionFilter } from './properties/filters/app-http-exception.filter';
-import { LocationExistsValidator } from './properties/validators/location-exists.validator';
 import { AppQueryFailedErrorFilter } from './properties/filters/app-query-failed-error.filter';
 import { AppAllExceptionsFilter } from './properties/filters/app-all-exceptions.filter';
 
@@ -13,8 +12,6 @@ import { AppAllExceptionsFilter } from './properties/filters/app-all-exceptions.
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env'],
-      // ignoreEnvFile: true // Only in servers that you dont pass the .env file directly
-      // validationSchema// using joi
     }),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as 'postgres',
