@@ -1,0 +1,691 @@
+{
+	"info": {
+		"_postman_id": "47627ccd-0bf1-4086-a690-f81eccd58b3d",
+		"name": "brain-ag",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2006253"
+	},
+	"item": [
+		{
+			"name": "producer-service",
+			"item": [
+				{
+					"name": "producer-service.create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Maria\",\n    \"cpfCnpj\": \"26541254000100\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/producers",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"producers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer-service.update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Kuwabara\",\n    \"cpfCnpj\": 12345678912\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/producers/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"producers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer-service.findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/producers",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"producers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer-service.findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/producers/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"producers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producer-service.remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/producers/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"producers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "crops",
+			"item": [
+				{
+					"name": "crop-service.create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": 2022,\n    \"commodityId\": 2,\n    \"propertyId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/crops",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"crops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crop-service.update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"year\": 2022,\n            \"commodityId\": 2,\n            \"propertyId\": 2\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/crops/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"crops",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crop-service.findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/crops",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"crops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crop-service.findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/crops/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"crops",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crop-service.remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/crops/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"crops",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dashboards",
+			"item": [
+				{
+					"name": "dashboard-service.findPropertiesAmount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/dashboards/find-properties-amount",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dashboards",
+								"find-properties-amount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dashboard-service.findTotalArea",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/dashboards/find-total-area",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dashboards",
+								"find-total-area"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dashboard-service.findGroupedStates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/dashboards/find-grouped-states",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dashboards",
+								"find-grouped-states"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dashboard-service.findGroupedCrops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/dashboards/find-grouped-crops/2022",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dashboards",
+								"find-grouped-crops",
+								"2022"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "dashboard-service.findLandUsed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/dashboards/find-land-used",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dashboards",
+								"find-land-used"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "location-service",
+			"item": [
+				{
+					"name": "location-service.create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"city\": \"Vitória\",\n    \"state\": \"ES\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/locations",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-service.update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"state\": \"RJ\",\n        \"city\": \"Contagem\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/locations/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"locations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-service.findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/locations",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-service.findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/locations/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"locations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "location-service.remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/locations/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"locations",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "commodity-service",
+			"item": [
+				{
+					"name": "commodity-service.create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Milho\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/commodities",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"commodities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commodity-service.update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Soja\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/commodities/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"commodities",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commodity-service.findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/commodities",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"commodities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commodity-service.findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/commodities/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"commodities",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "commodity-service.remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/commodities/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"commodities",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "property-service",
+			"item": [
+				{
+					"name": "property-service.create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fazendinha 2\",\n    \"totalArea\": 10,\n    \"agriculturalArea\": 5,\n    \"vegetationArea\": 2,\n    \"producerId\": 1,\n    \"locationId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property-service.update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fazendão\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/properties/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property-service.findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property-service.findOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property-service.remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/properties/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"properties",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
