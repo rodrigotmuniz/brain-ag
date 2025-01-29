@@ -8,9 +8,7 @@ export class PropertyExistsValidator implements ValidatorConstraintInterface {
   constructor(private readonly propertiesService: PropertiesService) {}
 
   async validate(propertyId: number): Promise<boolean> {
-    console.log('validate')
     const exists = await this.propertiesService.exists(propertyId)
-    console.log('exists', exists)
     return exists
   }
 

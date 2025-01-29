@@ -17,8 +17,4 @@ import { LocationsController } from './locations.controller'
   ],
   controllers: [LocationsController],
 })
-export class LocationsModule {
-  constructor() {
-    console.log()
-  }
-}
+export class LocationsModule {}

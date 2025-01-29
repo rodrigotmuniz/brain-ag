@@ -12,7 +12,6 @@ export class CropsController {
 
   @MessagePattern(CropsPattern.CREATE)
   create(@Payload() createCropDto: CreateCropDto) {
-    console.log('create')
     return this.cropsService.create(createCropDto)
   }
 
@@ -28,7 +27,6 @@ export class CropsController {
 
   @MessagePattern(CropsPattern.UPDATE)
   update(@Payload() updateCropDto: UpdateCropDto) {
-    console.log('update(@Payload()', updateCropDto)
     return this.cropsService.update(updateCropDto)
   }
 

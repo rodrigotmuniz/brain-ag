@@ -66,10 +66,7 @@ export class PropertiesService {
       where: { id },
       select: { id: true },
     })
-    console.log('foundProperty', foundProperty)
-    const a = !!foundProperty
-    console.log('a', a)
-    return a
+    return !!foundProperty
   }
 
   async findPropertiesAmount() {
@@ -96,7 +93,6 @@ export class PropertiesService {
       where: { producerId },
       select: { id: true },
     })
-    console.log('producerExists', foundProducer)
     return !!foundProducer
   }
 

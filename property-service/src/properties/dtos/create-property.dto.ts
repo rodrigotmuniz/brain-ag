@@ -5,8 +5,6 @@ import {
   Min,
   MinLength,
   Validate,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
 } from 'class-validator'
 import { LocationExistsValidator } from '../validators/location-exists.validator'
 import { ProducerExistsValidator } from '../validators/producer-exists.validator'

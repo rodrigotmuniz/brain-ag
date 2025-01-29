@@ -23,8 +23,4 @@ import { PropertiesService } from './services/properties.service'
   controllers: [LocationsController],
   providers: [LocationsService, PropertiesService],
 })
-export class LocationsModule {
-  constructor() {
-    console.log()
-  }
-}
+export class LocationsModule {}

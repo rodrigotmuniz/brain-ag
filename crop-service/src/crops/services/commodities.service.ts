@@ -22,7 +22,6 @@ export class CommoditiesService {
   async exists(id: number) {
     const observable = this.clientProxy.send(CommoditiesPattern.EXISTS, id)
     const { data } = await firstValueFrom(observable)
-    console.log('data', data)
     return data
   }
 

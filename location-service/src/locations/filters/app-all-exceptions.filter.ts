@@ -4,7 +4,6 @@ import { throwError } from 'rxjs'
 @Catch()
 export class AppAllExceptionsFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
-    console.log('AppAllExceptionsFilter', exception)
     const response = host.switchToHttp().getResponse()
 
     const message = getMessage(exception)
@@ -28,20 +27,3 @@ const getStatusCode = (exception) => {
   const statusCodeNumber = Number(exception.status)
   return isNaN(statusCodeNumber) ? 500 : statusCodeNumber
 }
-
-// exception {
-//   response: {
-//     message: [
-//       'property producerIds should not exist',
-//       'name must be longer than or equal to 5 characters',
-//       'producerId must be a positive number',
-//       'producerId must be a number conforming to the specified constraints'
-//     ],
-//     error: 'Bad Request',
-//     statusCode: 400
-//   },
-//   status: 400,
-//   options: {},
-//   message: 'Bad Request Exception',
-//   name: 'BadRequestException'
-// }

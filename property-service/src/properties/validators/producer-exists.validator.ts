@@ -7,8 +7,8 @@ import { ProducersService } from '../services/producers.service'
 export class ProducerExistsValidator implements ValidatorConstraintInterface {
   constructor(private readonly producersService: ProducersService) {}
 
-  async validate(lroducerId: number): Promise<boolean> {
-    const exists = await this.producersService.exists(lroducerId)
+  async validate(producerId: number): Promise<boolean> {
+    const exists = await this.producersService.exists(producerId)
     return exists
   }
 

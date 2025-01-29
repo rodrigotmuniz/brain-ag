@@ -39,7 +39,7 @@ export class CropsService {
   }
 
   async update(updateCropDto: UpdateCropDto) {
-    const {id, ...data} = updateCropDto
+    const { id, ...data } = updateCropDto
     const foundCrop = await this.findByIdOrFail(id)
 
     const updateCrop = this.repository.create({
@@ -77,7 +77,6 @@ export class CropsService {
 
     const commodityIds = groupedCrops.map((groupedCrop) => groupedCrop.commodityId)
     const commodities = await this.commoditiesService.findBatchByIds(commodityIds)
-    console.log('commodities', commodities)
 
     const groupedCropsWithCommodity = groupedCrops.map((groupedCrop) => ({
       commodity: commodities.find((commodity) => commodity.id === groupedCrop.commodityId),

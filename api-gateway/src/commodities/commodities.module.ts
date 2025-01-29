@@ -16,8 +16,4 @@ import { CommoditiesController } from './commodities.controller'
   ],
   controllers: [CommoditiesController],
 })
-export class CommoditiesModule {
-  constructor() {
-    console.log('COMMODITY_SERVICE_CLIENT', process.env.COMMODITY_SERVICE_CLIENT)
-  }
-}
+export class CommoditiesModule {}

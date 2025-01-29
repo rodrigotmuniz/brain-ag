@@ -24,8 +24,4 @@ import { CpfCnpjValidator } from './validators/cpf-cnpj.validator'
   controllers: [ProducersController],
   providers: [ProducersService, CpfCnpjValidator, PropertiesService],
 })
-export class ProducersModule {
-  constructor() {
-    console.log()
-  }
-}
+export class ProducersModule {}

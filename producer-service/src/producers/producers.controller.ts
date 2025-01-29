@@ -11,7 +11,6 @@ export class ProducersController {
 
   @MessagePattern(ProducersPattern.CREATE)
   create(@Payload() createProducerDto: CreateProducerDto) {
-    console.log(createProducerDto)
     return this.producersService.create(createProducerDto);
   }
 

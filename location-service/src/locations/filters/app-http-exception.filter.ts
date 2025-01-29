@@ -9,7 +9,6 @@ import { throwError } from 'rxjs';
 @Catch(HttpException)
 export class AppHttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
-    console.log('AppHttpExceptionFilter', exception);
     return throwError(() => exception);
   }
 }
