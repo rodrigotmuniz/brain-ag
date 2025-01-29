@@ -1,60 +1,66 @@
 # Brain Agriculture - Teste Técnico v2
 
-Essa aplicação foi desenvolvida utilizando a arquitetura de microserviços pensando em auta escalabilidade 
+Esta aplicação foi desenvolvida seguindo a arquitetura de microserviços, com foco em alta escalabilidade e modularidade.
 
 ## Diagrama dos Serviços
 
 ![Diagrama dos microserviços](README_FILES/diagram.png)
 
-Essa aplicação possui o serviço exposto ao cliente chamada api-gateway. Esse serviço é responsável por receber todas as chamadas e direcionar via TCP para cada microserviço registrado
+A aplicação conta com um serviço exposto ao cliente chamado `api-gateway`. Esse serviço é responsável por receber todas as requisições e direcioná-las, via TCP, para os microserviços registrados.
 
-Os outros serviços, exceto o dashboard-service, possuem bancos de dados Postgres dedicados. Cada serviço consegue comunicar com outro via TCP somente (não permitindo que o cliente externo os acessem)
+Os demais serviços, exceto o `dashboard-service`, possuem bancos de dados PostgreSQL dedicados. A comunicação entre os microserviços é realizada exclusivamente via TCP, impedindo o acesso externo direto a esses serviços.
 
-O serviço de dashboard recupera os dados necessários para montar seus gráficos a partir dos dados recebidos dos outros serviços
+O `dashboard-service` recupera os dados necessários de outros serviços para compor os gráficos e relatórios exibidos na interface.
 
-## Fluxo de cadastro 
+## Fluxo de Cadastro
 
 ![Fluxo de registro](README_FILES/register.png)
 
-Esse sistema foi implementado para que cadastro tenha sua autonomia. Alguns cadastro possuem dependência com outros (ex. o cadastro de propriedade possui dependência do cadastro de localização e do cadastro do produtor).
+O sistema foi projetado para que cada cadastro tenha sua própria autonomia. No entanto, alguns cadastros possuem dependências entre si. Por exemplo, o cadastro de propriedade depende dos cadastros de localização e produtor.
 
 ## Instalação
-1. Instale o docker e docker-compose
-2. Clone o projeto
-3. Execução da aplicação: 
-    
-    Há duas formas: 
-    
-    3.1 Executando a aplicação inteira (apis e dbs) via docker-compose 
-    Execute o comando abaixo para iniciar os container
-    ```
-    docker-compose up -d --build
-    ```
-    para parar os container, utilize:
-    ```
-    docker-compose down --remove-orphans
-    ```
 
+### 1. Requisitos
+- Docker e Docker Compose instalados.
+- Repositório clonado localmente.
 
-    3.2 executando as apis no seu local e os bancos de dados via docker-compose
-    Inicialize os bancos de dados
-    ```
-    docker-compose -f docker-compose-db.yaml up -d    
-    ```
-    Em seguite execute o seguinte comando dentro de cada microserviço
-    ```
-    cd ./api-gateway // Exemplo do api-gateway
-    npm run start:dev   
-    ```
-    Para parar a execução dos banco de dados:
-     ```
-    docker-compose -f docker-compose-db.yaml down --remove-orphans   
-    ```
-    Todos os arquivos de ambiente (.env) estão disponibilizados com as variáveis atribuidas
+### 2. Execução da Aplicação
 
+A aplicação pode ser executada de duas formas:
+
+#### 2.1 Executando toda a aplicação (APIs e bancos de dados) via Docker Compose
+Para iniciar os containers:
+```sh
+docker-compose up -d --build
+```
+Para parar os containers:
+```sh
+docker-compose down --remove-orphans
+```
+
+#### 2.2 Executando as APIs localmente e os bancos de dados via Docker Compose
+Inicie os bancos de dados:
+```sh
+docker-compose -f docker-compose-db.yaml up -d
+```
+Em seguida, inicie cada microserviço manualmente:
+```sh
+cd ./api-gateway  # Exemplo para o api-gateway
+npm run start:dev
+```
+Para parar os bancos de dados:
+```sh
+docker-compose -f docker-compose-db.yaml down --remove-orphans
+```
+
+> Todos os arquivos de ambiente (`.env`) estão disponíveis com as variáveis devidamente atribuídas.
 
 ## APIs
-Importe o seguinte json no seu Postman ou Insomnia para utilizar todos os endpoints da aplicação
+Para testar os endpoints da aplicação, importe o seguinte arquivo JSON no Postman ou Insomnia:
 
+[APIs.json](README_FILES/brain-ag.postman_collection.json)
 
-[Apis.json](README_FILES/brain-ag.postman_collection.json)
+## Testes e Monitoramento
+
+Por limitação de tempo, foram realizados apenas testes básicos e monitoramentos no serviço `property-service`. Contudo, enfatizo que, em um ambiente real, é fundamental implementar testes automatizados abrangentes, monitoramento detalhado e logging eficiente em todos os serviços para garantir a estabilidade e confiabilidade do sistema.
+
